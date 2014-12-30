@@ -34,6 +34,22 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String nom = request.getParameter("name");
+        String pwd = request.getParameter("pwd");
+        
+        System.out.println(nom);
+        
+        HttpSession session = request.getSession();
+        
+        for(Admin a:AdminDao.findall()){
+        	if((a.getNom()==nom) && (a.getPwd() == pwd))
+        		session.setAttribute("Status", "Admin");
+        }
+        for(User u:UserDao.findall()){
+        	if((u.getNom()==nom) && (u.getPwd() == pwd))
+        		session.setAttribute("Status", "User");
+        }
+        session.setAttribute("login", nom); 
         this.getServletContext().getRequestDispatcher("/LoginPage.jsp").forward(request, response);
 	}
 
@@ -42,22 +58,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String nom = request.getParameter("nomUser");
-        String pwd = request.getParameter("mdp");
-        
-        HttpSession session = request.getSession();
-        
-        for(Admin a:AdminDao.findall()){
-        	if((a.getNom()==nom) && (a.getPwd() == pwd))
-        		session.setAttribute("Status", "admin");
-        }
-        if (session.getAttribute("Status") == null){
-        	for(User u:UserDao.findall()){
-        		if((u.getNom()==nom) && (u.getPwd() == pwd))
-        			session.setAttribute("Status", "User");
-        		}
-            }        
-        
+ 
         this.getServletContext().getRequestDispatcher("/LoginPage.jsp").forward(request, response);
  
 	}
