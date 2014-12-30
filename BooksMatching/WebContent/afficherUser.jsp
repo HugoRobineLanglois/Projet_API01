@@ -16,7 +16,7 @@
 		Telephone : ${user.telephone }<br>
 		Date de création du compte : ${user.dateCreation }<br>
 		Statut du compte : ${user.statutCompte }<br>
-						
+		
 
 	
 	</body>
