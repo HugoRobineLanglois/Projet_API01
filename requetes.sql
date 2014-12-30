@@ -38,27 +38,63 @@ INSERT INTO `booksmatching`.`User`
 `statutCompte`)
 VALUES
 ('robinelanglois',
+<<<<<<< HEAD
 'robinelanglois',
+=======
+'robineaaaaa',
+>>>>>>> origin/master
 'ca ne vous regarde pas',
 '0613141560',
 '12-12-2014',
 'inactive'), 
 ('clemou',
-'clemou',
+'clemouaaaaaa',
 'qq part loin d ici',
 '0656067834',
 '07-02-2012',
 'active'), 
 ('luluche',
-'luluche',
+'lulucheaaaaa',
 'sous un  pont',
 '0665349672',
 '28-01-2013',
 'inactive'), 
 ('root',
-'root',
+'rootaaaaaaa',
 'sur une route',
 '0667239076',
 '01-11-2014',
 'active'); 
 SELECT * FROM booksmatching.User;
+
+DROP TABLE `booksmatching`.`administrateurs`;
+
+CREATE TABLE `booksmatching`.`administrateurs` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nom` VARCHAR(25) UNIQUE NOT NULL,
+  `tel` VARCHAR(15) NULL,
+  `pwd` VARCHAR(15) NULL,
+  PRIMARY KEY (`id`, `nom`));
+
+INSERT INTO `booksmatching`.`administrateurs`
+(`nom`,
+`tel`,
+`pwd`)
+VALUES
+('rootAdmin1',
+'0643368953',
+'rootAdmin1'),
+('rootAdmin2',
+'062976435',
+'rootAdmin2'),
+('rootAdmin3',
+'064230956',
+'rootAdmin3'),
+('rootAdmin4',
+'0646994368',
+'rootAdmin4');
+
+SELECT * FROM `booksmatching`.`administrateurs`;
+
+
+
