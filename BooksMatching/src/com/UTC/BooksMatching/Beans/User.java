@@ -1,16 +1,29 @@
 package com.UTC.BooksMatching.Beans;
 
+import java.io.Serializable;
 
-public class User {
+
+public class User implements Serializable, Comparable<Admin>{
+	private int id;
 	private String nom;
 	private String pwd;
 	private String adresse; 
 	private String telephone;
 	private String dateCreation;
 	private String statutCompte;	
-	private int id;
-	private String mdp;
 	
+	
+	public User(int id, String nom, String pwd, String adresse,
+			String telephone, String dateCreation, String statutCompte) {
+		super();
+		this.id = id;
+		this.nom = nom;
+		this.pwd = pwd;
+		this.adresse = adresse;
+		this.telephone = telephone;
+		this.dateCreation = dateCreation;
+		this.statutCompte = statutCompte;
+	}
 	public int getId() {
 		return id;
 	}
@@ -56,11 +69,10 @@ public class User {
 	public void setStatutCompte(String statutCompte) {
 		this.statutCompte = statutCompte;
 	}
-	public String getMdp() {
-		return mdp;
-	}
-	public void setMdp(String mdp) {
-		this.mdp = mdp;
+	@Override
+	public int compareTo(Admin arg0) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 }

@@ -8,11 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
+import com.UTC.BooksMatching.Beans.Admin;
 
-import com.UTC.BooksMatching.Beans.User;
 
 /**
  * Servlet implementation class AdminServlet
@@ -34,7 +31,7 @@ public class AdminServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String nom = request.getParameter("nomUser");
+		String nom = request.getParameter("nom");
 		String pwd = request.getParameter("pwd");
 		String adresse = request.getParameter("adresse");
 		
@@ -45,12 +42,12 @@ public class AdminServlet extends HttpServlet {
             message = "Administrateur créé avec succès !";
         }
 		
-		User user = new User();
-		user.setNom(nom);
-		user.setAdresse(adresse);
+		Admin a = new Admin(0, nom, pwd, adresse);
+		a.setNom(nom);
+		a.setAdresse(adresse);
 
 		
-		request.setAttribute("user", user);
+		request.setAttribute("Admin", a);
 		request.setAttribute("message", message);
 		
 		this.getServletContext().getRequestDispatcher( "/afficherAdmin.jsp" ).forward( request, response );

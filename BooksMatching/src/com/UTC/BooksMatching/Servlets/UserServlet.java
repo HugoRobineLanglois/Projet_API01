@@ -34,7 +34,7 @@ public class UserServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String id = request.getParameter("id");
+		String sid = request.getParameter("id");
 		String nom = request.getParameter("nomUser");
 		String adresse = request.getParameter("adresseUser");
 		String telephone = request.getParameter("telephoneUser");
@@ -51,15 +51,8 @@ public class UserServlet extends HttpServlet {
             message = "Utilisateur créé avec succès !";
         }
 		
-		User user = new User();
-		
-		user.setId(id);
-		user.setNom(nom);
-		user.setAdresse(adresse);
-		user.setTelephone(telephone);
-		user.setDateCreation(date);
-		user.setStatutCompte(statutCompte);
-		user.setMdp(mdp);
+		int id = Integer.parseInt(sid);
+		User user = new User(id, nom, mdp, adresse, telephone, date, statutCompte);
 		
 		request.setAttribute("user", user);
 		request.setAttribute("message", message);
