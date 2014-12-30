@@ -27,7 +27,6 @@
 				<td><%=u.getId()%></td>
 				<td><%=u.getNom()%></td>
 				<td><%=u.getTelephone()%></td>
-				<td><%=u.getUsername()%></td>
 				<td>
 					<a href="GestionUsers?action=supprimer&id=<%=u.getId()%>">Supprimer</a>
 					<a href="GestionUsers?action=modifier&id=<%=u.getId()%>">Modifier</a>	
