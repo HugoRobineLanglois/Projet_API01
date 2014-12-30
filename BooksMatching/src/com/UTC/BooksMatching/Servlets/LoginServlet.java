@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-        this.getServletContext().getRequestDispatcher("/LoginPage.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/WebContent/index.jsp").forward(request, response);
 	}
 
 	/**
@@ -58,7 +58,7 @@ public class LoginServlet extends HttpServlet {
         		}
             }        
         
-        this.getServletContext().getRequestDispatcher("/LoginPage.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/WebContent/index.jsp").forward(request, response);
  
 	}
 
