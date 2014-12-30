@@ -9,7 +9,7 @@
 	<body>
 		<%@ include file="EnTete.jsp"  %>
 		<h1>Welcome to the app, please login :</h1>
-		<form method="get" action="GestionLogin">
+		<form method="get" action="LoginServlet">
 	        <fieldset>
 	            <legend>Informations utilisateur</legend>
 	

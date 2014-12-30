@@ -38,7 +38,7 @@ INSERT INTO `booksmatching`.`User`
 `statutCompte`)
 VALUES
 ('robinelanglois',
-'robine',
+'robinelanglois',
 'ca ne vous regarde pas',
 '0613141560',
 '12-12-2014',
