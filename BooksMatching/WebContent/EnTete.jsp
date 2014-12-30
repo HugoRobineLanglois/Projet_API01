@@ -8,13 +8,15 @@
 		<title>En tête</title>
 	</head>
 	<body>
-	    <c:if test="${ !empty sessionScope.logs && sessionScope.logs == 'User' }">
+	    <c:if test="${ !empty sessionScope.Status && sessionScope.Status == 'User' }">
 	        <p>Vous êtes un lecteur !</p>
+	        <%@ include file="MenuUser.jsp"  %>
 	    </c:if>
-	    <c:if test="${ !empty sessionScope.logs && sessionScope.logs == 'Admin' }">
+	    <c:if test="${ !empty sessionScope.Status && sessionScope.Status == 'Admin' }">
 	        <p>Vous êtes un administrateur !</p>
+	        <%@ include file="MenuAdmin.jsp"  %>
 	    </c:if>
-	    <c:if test="${ empty sessionScope.logs }">
+	    <c:if test="${ empty sessionScope.Status }">
 	        <p>Vous n'êtes pas authentifié !</p>
 	    </c:if>
 	
