@@ -52,6 +52,7 @@ public class UserServlet extends HttpServlet {
         }
 		
 		User user = new User();
+		
 		user.setId(id);
 		user.setNom(nom);
 		user.setAdresse(adresse);
