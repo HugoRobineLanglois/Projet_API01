@@ -2,28 +2,23 @@ package com.UTC.BooksMatching.Beans;
 
 
 public class User {
-<<<<<<< HEAD
 	private String nom;
 	private String pwd;
 	private String adresse; 
 	private String telephone;
 	private String dateCreation;
 	private String statutCompte;	
-=======
 	private int id;
-	private String nom; 
-	private String adresse; 
-	private String telephone;
-	private String dateCreation;
-	private String statutCompte;
 	private String mdp;
->>>>>>> origin/master
 	
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public void setId(String id){
+		this.id = Integer.parseInt(id);
 	}
 	public String getNom() {
 		return nom;

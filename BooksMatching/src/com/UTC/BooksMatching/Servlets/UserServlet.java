@@ -34,18 +34,15 @@ public class UserServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String id = request.getParameter("id");
 		String nom = request.getParameter("nomUser");
 		String adresse = request.getParameter("adresseUser");
 		String telephone = request.getParameter("telephoneUser");
 		DateTime dt = new DateTime();
 		DateTimeFormatter form = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
 		String date = dt.toString(form);
-<<<<<<< HEAD
 		String statutCompte = "inactif"; //inactif par défaut & confirmation de qc pour l'activer ? 
-=======
-		String statutCompte = "inactive"; //inactif par défaut & confirmation de qc pour l'activer ?
 		String mdp = request.getParameter("mdpUser");
->>>>>>> origin/master
 		
 		String message;
 		if ( nom.trim().isEmpty() || adresse.trim().isEmpty() || telephone.trim().isEmpty() ) {

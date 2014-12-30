@@ -39,8 +39,8 @@ public class UserDao {
 			String sql = "UPDATE User SET nom = ?, adresse = ?, telephone = ?, dateCreation = ?, statuCompte = ?, mdp= ? WHERE id = ?";
 			java.sql.PreparedStatement ps = cnx.prepareStatement(sql);
 			ps.setString(1, u.getNom());
-			ps.setString(2, u.getTel());
-			ps.setString(3, u.getUsername());
+			ps.setString(2, u.getTelephone());
+			ps.setString(3, u.getNom());
 			ps.setString(4, u.getPwd());
 			ps.setInt(5, u.getId());
 			
