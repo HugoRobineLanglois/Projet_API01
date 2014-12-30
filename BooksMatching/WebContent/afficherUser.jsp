@@ -17,28 +17,7 @@
 		Date de création du compte : ${user.dateCreation }<br>
 		Statut du compte : ${user.statutCompte }<br>
 		
-		<%
-		Object obj = request.getAttribute("listeU");
-		if(obj!=null){
-			List<User> lu = (List<User>)obj;
-			for(User u : lu){
-			%>
-			<tr>
-				<td><%=u.getId()%></td>
-				<td><%=u.getNom()%></td>
-				<td><%=u.getTelephone()%></td>
-				<td><%=u.getUsername()%></td>
-				<td>
-					<a href="GestionUsers?action=supprimer&id=<%=u.getId()%>">Supprimer</a>
-					<a href="GestionUsers?action=modifier&id=<%=u.getId()%>">Modifier</a>	
-				</td>
-			</tr>
-		<%
-			}
-			
-			
-		}
-		%>
+
 	
 	</body>
 </html>

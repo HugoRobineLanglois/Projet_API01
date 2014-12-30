@@ -19,6 +19,10 @@
 	    <c:if test="${ empty sessionScope.Status }">
 	        <p>Vous n'êtes pas authentifié !</p>
 	    </c:if>
+	    
+	    <%
+	    
+	    %>
 	
 	</body>
 </html>
