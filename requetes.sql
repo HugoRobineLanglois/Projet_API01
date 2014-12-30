@@ -62,3 +62,35 @@ VALUES
 '01-11-2014',
 'active'); 
 SELECT * FROM booksmatching.User;
+
+DROP TABLE `booksmatching`.`administrateurs`;
+
+CREATE TABLE `booksmatching`.`administrateurs` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nom` VARCHAR(25) UNIQUE NOT NULL,
+  `tel` VARCHAR(15) NULL,
+  `pwd` VARCHAR(15) NULL,
+  PRIMARY KEY (`id`, `nom`));
+
+INSERT INTO `booksmatching`.`administrateurs`
+(`nom`,
+`tel`,
+`pwd`)
+VALUES
+('rootAdmin1',
+'0643368953',
+'rootAdmin1'),
+('rootAdmin2',
+'062976435',
+'rootAdmin2'),
+('rootAdmin3',
+'064230956',
+'rootAdmin3'),
+('rootAdmin4',
+'0646994368',
+'rootAdmin4');
+
+SELECT * FROM `booksmatching`.`administrateurs`;
+
+
+
