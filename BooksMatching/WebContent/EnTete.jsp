@@ -8,7 +8,6 @@
 		<title>En tête</title>
 	</head>
 	<body>
-		Vous êtes ${ sessionScope.login }
 	    <c:if test="${ !empty sessionScope.Status && sessionScope.Status == 'User' }">
 	        <p>Vous êtes un lecteur !</p>
 	        <%@ include file="MenuUser.jsp"  %>
