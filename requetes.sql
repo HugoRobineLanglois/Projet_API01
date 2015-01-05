@@ -61,7 +61,7 @@ VALUES
 '0667239076',
 '01-11-2014',
 'active'); 
-SELECT * FROM booksmatching.User;
+SELECT * FROM booksmatching.user;
 
 DROP TABLE `booksmatching`.`administrateurs`;
 

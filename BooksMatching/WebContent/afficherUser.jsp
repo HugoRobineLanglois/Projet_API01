@@ -28,10 +28,9 @@
 			<tr>
 				<td><%=u.getId()%></td>
 				<td><%=u.getNom()%></td>
-				<td><%=u.getTelephone()%></td>
 				<td>
-					<a href="GestionUsers?action=supprimer&id=<%=u.getId()%>">Supprimer</a>
-					<a href="GestionUsers?action=modifier&id=<%=u.getId()%>">Modifier</a>	
+					<a href="">Supprimer</a>
+					<a href="">Modifier</a>	
 				</td>
 			</tr>
 		<%
@@ -41,25 +40,7 @@
 		}
 		%>
 		
-		<%
-		List<Admin> listeA = AdminDao.findall();
-		if(listeA!=null){
-			for(Admin a : listeA){
-			%>
-			<tr>
-				<td><%=a.getId()%></td>
-				<td><%=a.getNom()%></td>
-				<td>
-					<a href="GestionUsers?action=supprimer&id=<%=a.getId()%>">Supprimer</a>
-					<a href="GestionUsers?action=modifier&id=<%=a.getId()%>">Modifier</a>	
-				</td>
-			</tr>
-		<%
-			}
-			
-			
-		}
-		%>
+		
 	
 	</body>
 </html>

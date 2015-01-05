@@ -15,7 +15,7 @@ public class UserDao {
 			cnx=ConnexionBDD.getInstance().getCnx();
 			System.out.println("Connexion passée");
 			
-			String sql = "INSERT INTO user(nom, pwd, adresse, telephone, dateCreation, statutCompte) VALUES(?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO User(nom, pwd, adresse, telephone, dateCreation, statutCompte) VALUES(?, ?, ?, ?, ?, ?)";
 			java.sql.PreparedStatement ps = cnx.prepareStatement(sql);
 			ps.setString(1, u.getNom());
 			ps.setString(2, u.getPwd());
@@ -39,7 +39,7 @@ public class UserDao {
 		try {
 			cnx=ConnexionBDD.getInstance().getCnx();
 			
-			String sql = "UPDATE user SET nom = ?, adresse = ?, telephone = ?, dateCreation = ?, statuCompte = ?, mdp= ? WHERE id = ?";
+			String sql = "UPDATE User SET nom = ?, adresse = ?, telephone = ?, dateCreation = ?, statuCompte = ?, mdp= ? WHERE id = ?";
 			java.sql.PreparedStatement ps = cnx.prepareStatement(sql);
 			ps.setString(1, u.getNom());
 			ps.setString(2, u.getTelephone());
@@ -62,7 +62,7 @@ public class UserDao {
 		Connection cnx = null;
 		try{
 			cnx = ConnexionBDD.getInstance().getCnx();
-			java.sql.PreparedStatement statement = cnx.prepareStatement("SELECT id,nom,adresse,telephone, dateCreation, statutCompte, pwd FROM user;");
+			java.sql.PreparedStatement statement = cnx.prepareStatement("SELECT id,nom,adresse,telephone, dateCreation, statutCompte, pwd FROM User;");
 	
 			ResultSet res = statement.executeQuery();
 	
