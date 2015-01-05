@@ -13,5 +13,6 @@
 		<h4><a href="afficherUser.jsp">Affichage USER</a></h4>
 		<h4><a href="AfficheAdmin.jsp">Affichage Admin</a></h4>
 		<h4><a href="CreationUser.jsp">Création d'utilisateur</a></h4>
+		<h4><a href="affichage2.jsp">Clem</a></h4>
 	</body>
 </html>
