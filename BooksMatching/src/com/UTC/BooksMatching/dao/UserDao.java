@@ -13,6 +13,7 @@ public class UserDao {
 		Connection cnx = null;
 		try {
 			cnx=ConnexionBDD.getInstance().getCnx();
+			System.out.println("Connexion passée");
 			
 			String sql = "INSERT INTO User(nom, pwd, adresse, telephone, dateCreation, statutCompte) VALUES(?, ?, ?, ?, ?, ?)";
 			java.sql.PreparedStatement ps = cnx.prepareStatement(sql);
