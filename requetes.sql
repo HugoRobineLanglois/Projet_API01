@@ -38,15 +38,11 @@ INSERT INTO `booksmatching`.`User`
 `statutCompte`)
 VALUES
 ('robinelanglois',
-<<<<<<< HEAD
 'robinelanglois',
-=======
-'robineaaaaa',
->>>>>>> origin/master
 'ca ne vous regarde pas',
 '0613141560',
 '12-12-2014',
-'inactive'), 
+'inactive'),
 ('clemou',
 'clemouaaaaaa',
 'qq part loin d ici',
