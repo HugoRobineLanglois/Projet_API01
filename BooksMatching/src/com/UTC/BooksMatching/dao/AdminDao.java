@@ -99,8 +99,9 @@ public class AdminDao {
 			ResultSet res = statement.executeQuery();
 
 			while (res.next()){
-				lu.add(new Admin(res.getInt("id"),res.getString("nom"), res.getString("pwd"), res.getString("adresse")));
+				lu.add(new Admin(res.getInt("id"),res.getString("nom"), res.getString("pwd"), res.getString("tel")));
 			}
+			
 	
 			res.close();
 	
