@@ -62,12 +62,12 @@ public class UserDao {
 		Connection cnx = null;
 		try{
 			cnx = ConnexionBDD.getInstance().getCnx();
-			java.sql.PreparedStatement statement = cnx.prepareStatement("SELECT id,nom,tel,pwd FROM user;");
+			java.sql.PreparedStatement statement = cnx.prepareStatement("SELECT id,nom,adresse,telephone, dateCreation, statutCompte, pwd FROM user;");
 	
 			ResultSet res = statement.executeQuery();
 	
 			while (res.next()){
-				lu.add(new User(res.getInt("id"),res.getString("nom"), res.getString("pwd"), res.getString("adresse"), res.getString("tel"), res.getString("dateCreation"), res.getString("statutCompte")));
+				lu.add(new User(res.getInt("id"),res.getString("nom"), res.getString("pwd"), res.getString("adresse"), res.getString("telephone"), res.getString("dateCreation"), res.getString("statutCompte")));
 			}
 
 			res.close();
