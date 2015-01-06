@@ -13,7 +13,6 @@ public class UserDao {
 		Connection cnx = null;
 		try {
 			cnx=ConnexionBDD.getInstance().getCnx();
-			System.out.println("Connexion passée");
 			
 			String sql = "INSERT INTO User(nom, pwd, adresse, telephone, dateCreation, statutCompte) VALUES(?, ?, ?, ?, ?, ?)";
 			java.sql.PreparedStatement ps = cnx.prepareStatement(sql);
@@ -61,20 +60,20 @@ public class UserDao {
 		java.util.List<User> lu = new ArrayList<User>();
 		Connection cnx = null;
 		try{
-			cnx = ConnexionBDD.getInstance().getCnx();
-			java.sql.PreparedStatement statement = cnx.prepareStatement("SELECT id,nom,adresse,telephone, dateCreation, statutCompte, pwd FROM User;");
-	
-			ResultSet res = statement.executeQuery();
-	
-			while (res.next()){
-				lu.add(new User(res.getInt("id"),res.getString("nom"), res.getString("pwd"), res.getString("adresse"), res.getString("telephone"), res.getString("dateCreation"), res.getString("statutCompte")));
-			}
+		cnx = ConnexionBDD.getInstance().getCnx();
+		java.sql.PreparedStatement statement = cnx.prepareStatement("SELECT id,nom,tel,pwd FROM utilisateurs;");
 
-			res.close();
-	
-			ConnexionBDD.getInstance().closecnx();
-	
-			return lu;
+		ResultSet res = statement.executeQuery();
+
+		while (res.next()){
+			lu.add(new User(res.getInt("id"),res.getString("nom"), res.getString("pwd"), res.getString("adresse"), res.getString("tel"), res.getString("dateCreation"), res.getString("statutCompte")));
+		}
+
+		res.close();
+
+		ConnexionBDD.getInstance().closecnx();
+
+		return lu;
 
 		} catch(SQLException e){
 			e.printStackTrace();
