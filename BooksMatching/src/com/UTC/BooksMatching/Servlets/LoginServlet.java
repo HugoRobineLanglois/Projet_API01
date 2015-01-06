@@ -34,8 +34,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
-        this.getServletContext().getRequestDispatcher("/LoginPage.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 	}
 
 	/**
@@ -50,15 +49,20 @@ public class LoginServlet extends HttpServlet {
         HttpSession session = request.getSession();
         
         for(Admin a:AdminDao.findall()){
+        	System.out.println("Test1");
         	System.out.println(a.getNom());
-        	if((a.getNom()==nom) && (a.getPwd() == pwd))
-        		session.setAttribute("Status", "Admin");
+        	System.out.println("Test2");
+        	System.out.println(a.getPwd());
+        	if((a.getNom()==nom) && (a.getPwd() == pwd)){
+        		  session.setAttribute("Status", "Admin");
+        		  System.out.println("It works !");
+        	}
         }
         for(User u:UserDao.findall()){
         	if((u.getNom()==nom) && (u.getPwd() == pwd))
         		session.setAttribute("Status", "User");
         }
-        this.getServletContext().getRequestDispatcher("/LoginPage.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
  
 	}
 

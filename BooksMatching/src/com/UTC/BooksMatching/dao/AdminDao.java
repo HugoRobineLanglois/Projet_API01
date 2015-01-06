@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import com.UTC.BooksMatching.Beans.Admin;
 
 public class AdminDao {
+	
 	public static int insert (Admin a){
 		int res = 0;
 		
