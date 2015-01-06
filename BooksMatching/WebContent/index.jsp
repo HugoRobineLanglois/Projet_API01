@@ -10,7 +10,7 @@
 		<%@ include file="EnTete.jsp"  %>
 		<h1>Books Matching</h1>
 		<h4><a href="LoginPage.jsp">Page de Login</a></h4>
-		<h4><a href="afficherUser.jsp">Affichage USER</a></h4>
+		<h4><a href="afficherUser.jsp">Affichage User</a></h4>
 		<h4><a href="AfficheAdmin.jsp">Affichage Admin</a></h4>
 		<h4><a href="CreationUser.jsp">Création d'utilisateur</a></h4>
 	</body>
