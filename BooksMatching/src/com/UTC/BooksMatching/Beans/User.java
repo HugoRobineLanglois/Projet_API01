@@ -3,7 +3,7 @@ package com.UTC.BooksMatching.Beans;
 import java.io.Serializable;
 
 
-public class User implements Serializable{
+public class User implements Serializable, Comparable<Admin>{
 	private int id;
 	private String nom;
 	private String pwd;
@@ -24,18 +24,6 @@ public class User implements Serializable{
 		this.dateCreation = dateCreation;
 		this.statutCompte = statutCompte;
 	}
-	
-	public User(String nom, String pwd, String adresse,
-			String telephone, String dateCreation, String statutCompte) {
-		super();
-		this.nom = nom;
-		this.pwd = pwd;
-		this.adresse = adresse;
-		this.telephone = telephone;
-		this.dateCreation = dateCreation;
-		this.statutCompte = statutCompte;
-	}
-	
 	public int getId() {
 		return id;
 	}
