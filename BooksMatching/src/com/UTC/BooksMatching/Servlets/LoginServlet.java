@@ -44,25 +44,25 @@ public class LoginServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String nom = request.getParameter("name");
         String pwd = request.getParameter("pwd");
-        System.out.println(nom);
-        System.out.println(pwd);
         HttpSession session = request.getSession();
         
         for(Admin a:AdminDao.findall()){
-        	System.out.println("Test1");
-        	System.out.println(a.getNom());
-        	System.out.println("Test2");
-        	System.out.println(a.getPwd());
-        	if((a.getNom()==nom) && (a.getPwd() == pwd)){
+        	if((a.getNom().compareTo(nom) == 0) && (a.getPwd().compareTo(pwd) == 0)) {
+        		if (a.getPwd().compareTo(pwd) == 0){
         		  session.setAttribute("Status", "Admin");
-        		  System.out.println("It works !");
+        		  this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+        		}
         	}
         }
         for(User u:UserDao.findall()){
-        	if((u.getNom()==nom) && (u.getPwd() == pwd))
+        	System.out.println(u.getNom());
+        	
+        	if((u.getNom().compareTo(nom) == 0) && (u.getPwd().compareTo(pwd) == 0)){
         		session.setAttribute("Status", "User");
+        		this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+        	}
         }
-        this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/LoginPage.jsp").forward(request, response);
  
 	}
 
