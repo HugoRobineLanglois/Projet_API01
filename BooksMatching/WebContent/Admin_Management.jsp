@@ -7,10 +7,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Affichage des administrateurs</title>
+<title>Gestion des administrateurs</title>
 </head>
 <body>
-	<table>
+		<%@ include file="EnTete.jsp"  %>
+		<a href="AdminServlet">Ajouter</a> un admin
+		<table>
 		<%
 		List<Admin> listeA = AdminDao.findall();
 		if(listeA!=null){
@@ -20,8 +22,8 @@
 				<td><%=a.getId()%></td>
 				<td><%=a.getNom()%></td>
 				<td>
-					<a href="">Supprimer</a>
-					<a href="">Modifier</a>	
+					<a href="AdminServlet">Supprimer</a>
+					<a href="AdminServlet">Modifier</a>	
 				</td>
 			</tr>
 		<%
@@ -32,6 +34,6 @@
 		%>
 		
 	</table>
-
+	
 </body>
 </html>
