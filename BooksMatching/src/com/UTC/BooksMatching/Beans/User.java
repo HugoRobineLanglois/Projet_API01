@@ -3,7 +3,7 @@ package com.UTC.BooksMatching.Beans;
 import java.io.Serializable;
 
 
-public class User implements Serializable, Comparable<Admin>{
+public class User implements Serializable{
 	private int id;
 	private String nom;
 	private String pwd;
