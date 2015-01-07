@@ -11,7 +11,7 @@
 </head>
 <body>
 		<%@ include file="EnTete.jsp"  %>
-		
+		<a href="AdminServlet">Ajouter</a> un admin
 		<table>
 		<%
 		List<Admin> listeA = AdminDao.findall();
@@ -22,8 +22,8 @@
 				<td><%=a.getId()%></td>
 				<td><%=a.getNom()%></td>
 				<td>
-					<a href="AdminServlet?action=supprimer&id=<%=a.getId()%>">Supprimer</a>
-					<a href="AdminServlet?action=modifier&id=<%=a.getId()%>">Modifier</a>	
+					<a href="AdminServlet">Supprimer</a>
+					<a href="AdminServlet">Modifier</a>	
 				</td>
 			</tr>
 		<%
@@ -35,18 +35,5 @@
 		
 	</table>
 	
-	<form method="post" action="AdminServlet">
-		<label for="Nom">Nom :</label>
-		<input type="text" name="nom" id="nom" value="${aModif.nom}"/>
-		<br />
-		<label for="Tel">Tel :</label>
-		<input type="text" name="adresse" id="adresse" value="${aModif.adresse}"/>
-		<br />
-		<label for="Pwd">Password :</label>
-		<input type="text" name="pwd" id="pwd" value="${aModif.pwd}"/>
-		<br />
-		<input type="hidden" name=id name="id" value="${uModif.id}"/>
-		<input type="reset" value="Reset" /><input type="submit" value="Valider" />
-	</form>
 </body>
 </html>
