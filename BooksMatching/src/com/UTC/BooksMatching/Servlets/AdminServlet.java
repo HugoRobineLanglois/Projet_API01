@@ -1,6 +1,8 @@
 package com.UTC.BooksMatching.Servlets;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.UTC.BooksMatching.Beans.Admin;
+import com.UTC.BooksMatching.dao.AdminDao;
 
 
 /**
@@ -30,27 +33,33 @@ public class AdminServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String nom = request.getParameter("nom");
-		String pwd = request.getParameter("pwd");
-		String adresse = request.getParameter("adresse");
+		List<Admin> la = AdminDao.findall();
+		int id=0;
+		String action = request.getParameter("action");
+		if (action != null) {
+			
+			String idch = request.getParameter("id");
+			if(idch != null){
+				try{
+					id = Integer.parseInt(idch);
+				} catch(Exception e){
+					
+				}
+			}
+			if (action.equals("supprimer")){
+				AdminDao.delete(id);
+			} else if (action.equals("modifier")){
+				//request.setAttribute("aModif", AdminDao.find(id));
+			} else if (action.equals("sort")){
+				Collections.sort(la);
+			}
+		}
 		
-		String message;
-		if ( nom.trim().isEmpty() || pwd.trim().isEmpty()) {
-            message = "Erreur - Vous n'avez pas rempli tous les champs obligatoires. <br> <a href=\"CreationAdmin.jsp\">Cliquez ici</a> pour accéder au formulaire de création d'un administrateur.";
-        } else {
-            message = "Administrateur créé avec succès !";
-        }
+		// recuperer une liste d'utilisateurs
+		request.setAttribute("listeA", la);
 		
-		Admin a = new Admin(0, nom, pwd, adresse);
-		a.setNom(nom);
-		a.setAdresse(adresse);
-
-		
-		request.setAttribute("Admin", a);
-		request.setAttribute("message", message);
-		
-		this.getServletContext().getRequestDispatcher( "/afficherAdmin.jsp" ).forward( request, response );
+		//rediriger vers une page
+		request.getRequestDispatcher("Admin_Management.jsp").forward(request,response);
 	}
 
 	/**
