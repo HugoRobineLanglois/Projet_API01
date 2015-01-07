@@ -38,11 +38,15 @@ INSERT INTO `booksmatching`.`User`
 `statutCompte`)
 VALUES
 ('robinelanglois',
+<<<<<<< HEAD
 'robinelanglois',
+=======
+'robineaaaaa',
+>>>>>>> origin/master
 'ca ne vous regarde pas',
 '0613141560',
 '12-12-2014',
-'inactive'),
+'inactive'), 
 ('clemou',
 'clemouaaaaaa',
 'qq part loin d ici',
@@ -61,7 +65,7 @@ VALUES
 '0667239076',
 '01-11-2014',
 'active'); 
-SELECT * FROM booksmatching.user;
+SELECT * FROM booksmatching.User;
 
 DROP TABLE `booksmatching`.`administrateurs`;
 
@@ -90,7 +94,7 @@ VALUES
 '0646994368',
 'rootAdmin4');
 
-SELECT * FROM `booksmatching`.`administrateurs`;	
+SELECT * FROM `booksmatching`.`administrateurs`;
 
 
 
