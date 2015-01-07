@@ -94,7 +94,7 @@ public class AdminDao {
 		Connection cnx = null;
 		try{
 			cnx = ConnexionBDD.getInstance().getCnx();
-			java.sql.PreparedStatement statement = cnx.prepareStatement("SELECT id,nom,adresse,pwd FROM administrateurs;");
+			java.sql.PreparedStatement statement = cnx.prepareStatement("SELECT id,nom,tel,pwd FROM administrateurs;");
 	
 			ResultSet res = statement.executeQuery();
 

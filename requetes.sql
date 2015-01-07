@@ -38,11 +38,11 @@ INSERT INTO `booksmatching`.`User`
 `statutCompte`)
 VALUES
 ('robinelanglois',
-
+<<<<<<< HEAD
 'robinelanglois',
-
+=======
 'robineaaaaa',
-
+>>>>>>> origin/master
 'ca ne vous regarde pas',
 '0613141560',
 '12-12-2014',
@@ -72,13 +72,13 @@ DROP TABLE `booksmatching`.`administrateurs`;
 CREATE TABLE `booksmatching`.`administrateurs` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nom` VARCHAR(25) UNIQUE NOT NULL,
-  `adresse` VARCHAR(15) NULL,
+  `tel` VARCHAR(15) NULL,
   `pwd` VARCHAR(15) NULL,
   PRIMARY KEY (`id`, `nom`));
 
 INSERT INTO `booksmatching`.`administrateurs`
 (`nom`,
-`adresse`,
+`tel`,
 `pwd`)
 VALUES
 ('rootAdmin1',
