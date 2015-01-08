@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
     <wb-module deploy-name="BooksMatching">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+<<<<<<< HEAD
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/config"/>
+=======
+>>>>>>> parent of 2249f2e... Revert "Merge branch 'master' of https://github.com/HugoRobineLanglois/Projet_API01"
         <property name="context-root" value="BooksMatching"/>
         <property name="java-output-path" value="/BooksMatching/build/classes"/>
     </wb-module>
