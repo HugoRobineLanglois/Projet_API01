@@ -16,7 +16,7 @@
 
 -- select * from User;
 
- DROP TABLE `booksmatching`.`User`;
+DROP TABLE `booksmatching`.`User`;
 
 CREATE TABLE `booksmatching`.`User` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -39,10 +39,17 @@ INSERT INTO `booksmatching`.`User`
 VALUES
 ('robinelanglois',
 <<<<<<< HEAD
+<<<<<<< HEAD
 'robineaaaaa',
 =======
 'robinelanglois',
 >>>>>>> FETCH_HEAD
+=======
+'robinelanglois',
+=======
+'robineaaaaa',
+>>>>>>> origin/master
+>>>>>>> parent of e16e053... Book gestion
 'ca ne vous regarde pas',
 '0613141560',
 '12-12-2014',
@@ -67,7 +74,7 @@ VALUES
 'active'); 
 SELECT * FROM booksmatching.user;
 
- DROP TABLE `booksmatching`.`administrateurs`;
+DROP TABLE `booksmatching`.`administrateurs`;
 
 CREATE TABLE `booksmatching`.`administrateurs` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -95,63 +102,6 @@ VALUES
 'rootAdmin4');
 
 SELECT * FROM `booksmatching`.`administrateurs`;	
-
-
- DROP TABLE TABLE `booksmatching`.`books`; 
-
-CREATE TABLE `booksmatching`.`books` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `titre` VARCHAR(45) NULL,
-  `auteur` VARCHAR(45) NULL,
-  `editeur` VARCHAR(45) NULL,
-  `genre` VARCHAR(45) NULL,
-  `isbn` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`));
-
-
-  
-  
-INSERT INTO `booksmatching`.`books`
-(`titre`,
-`auteur`,
-`editeur`,
-`genre`,
-`isbn`)
-VALUES
-('livre1',
-'livre1',
-'livre1',
-'livre1',
-'livre1'),
-('livre2',
-'livre2',
-'livre2',
-'livre2',
-'livre2'),
-('livre3',
-'livre3',
-'livre3',
-'livre3',
-'livre3'),
-('livre4',
-'livre4',
-'livre4',
-'livre4',
-'livre4');
-
-
-SELECT * FROM  `booksmatching`.`books` ;
-
-CREATE TABLE `booksmatching`.`note` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `idUser` INT NULL,
-  `idBooks` INT NULL,
-  `qWriting` INT NULL,
-  `dRead` INT NULL,
-  `dAutor` INT NULL,
-  `dRecommend` INT NULL,
-  PRIMARY KEY (`id`));
-
 
 
 

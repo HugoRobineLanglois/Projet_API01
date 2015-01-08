@@ -42,14 +42,14 @@ public class UserServlet extends HttpServlet {
 		DateTime dt = new DateTime();
 		DateTimeFormatter form = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
 		String date = dt.toString(form);
-		String statutCompte = "inactif"; //inactif par dï¿½faut & confirmation de qc pour l'activer ? 
+		String statutCompte = "inactif"; //inactif par défaut & confirmation de qc pour l'activer ? 
 		String mdp = request.getParameter("mdpUser");
 		
 		String message;
 		if ( nom.trim().isEmpty() || adresse.trim().isEmpty() || telephone.trim().isEmpty() ) {
-            message = "Erreur - Vous n'avez pas rempli tous les champs obligatoires. <br> <a href=\"CreationUser.jsp\">Cliquez ici</a> pour accï¿½der au formulaire de crï¿½ation d'un utilisateur.";
+            message = "Erreur - Vous n'avez pas rempli tous les champs obligatoires. <br> <a href=\"CreationUser.jsp\">Cliquez ici</a> pour accéder au formulaire de création d'un utilisateur.";
         } else {
-            message = "Utilisateur crÃ©e avec succÃ©s !";
+            message = "Utilisateur créé avec succès !";
         }
 		
 		//int id = Integer.parseInt(sid);
