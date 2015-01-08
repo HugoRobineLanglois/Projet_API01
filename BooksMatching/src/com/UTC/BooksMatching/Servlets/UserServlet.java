@@ -13,7 +13,6 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import com.UTC.BooksMatching.Beans.User;
-import com.UTC.BooksMatching.dao.UserDao;
 
 /**
  * Servlet implementation class UserServlet
@@ -35,7 +34,7 @@ public class UserServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//String sid = request.getParameter("id");
+		String sid = request.getParameter("id");
 		String nom = request.getParameter("nomUser");
 		String adresse = request.getParameter("adresseUser");
 		String telephone = request.getParameter("telephoneUser");
@@ -52,14 +51,11 @@ public class UserServlet extends HttpServlet {
             message = "Utilisateur crée avec succés !";
         }
 		
-		//int id = Integer.parseInt(sid);
-		//User user = new User(id, nom, mdp, adresse, telephone, date, statutCompte);
-		User user = new User(nom, mdp, adresse, telephone, date, statutCompte);
+		int id = Integer.parseInt(sid);
+		User user = new User(id, nom, mdp, adresse, telephone, date, statutCompte);
 		
 		request.setAttribute("user", user);
 		request.setAttribute("message", message);
-		
-		UserDao.insert(user);
 		
 		this.getServletContext().getRequestDispatcher( "/afficherUser.jsp" ).forward( request, response );
 	}
