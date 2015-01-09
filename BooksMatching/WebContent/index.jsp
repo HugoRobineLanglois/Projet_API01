@@ -13,5 +13,6 @@
 		<h4><a href="afficherUser.jsp">Affichage User</a></h4>
 		<h4><a href="AfficheAdmin.jsp">Affichage Admin</a></h4>
 		<h4><a href="CreationUser.jsp">Création d'utilisateur</a></h4>
+		<h4><a href="BookServlet">Gestion des livres</a></h4>
 	</body>
 </html>

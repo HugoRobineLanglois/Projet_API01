@@ -18,7 +18,7 @@ public final class ConnexionBDD {
 			
 			Properties p = new Properties();
 			p.load(Thread.currentThread().getContextClassLoader().
-						getResourceAsStream("confBDD.properties"));
+						getResourceAsStream("/com/UTC/BooksMatching/dao/confBDD.properties"));
 			
 			// chargement du driver
 			Class.forName(p.getProperty("driver"));
