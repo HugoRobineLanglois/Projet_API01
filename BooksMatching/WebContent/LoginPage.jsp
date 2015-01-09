@@ -18,7 +18,7 @@
 	            <br />
 	            
 	            <label for="mdp"> Password <span class="requis">*</span></label>
-	            <input pattern=".{8,}" required title="8 characters minimum" type="password" id="mpdUser" >
+	            <input pattern=".{8,}" required title="8 characters minimum" type="password" id="mdp" name="mdp">
 	            <br />
 	            
 	        </fieldset>

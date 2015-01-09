@@ -4,9 +4,10 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>Insert title here</title>
+		<title>Accueil</title>
 	</head>
 	<body>
+		<%@ include file="EnTete.jsp"  %>
 		<h1>Books Matching</h1>
 		<h4><a href="LoginPage.jsp">Page de Login</a></h4>
 		<h4><a href="CreationUser.jsp">Création d'utilisateur</a></h4>
