@@ -17,8 +17,8 @@ import com.UTC.BooksMatching.Beans.titreComp;
 import com.UTC.BooksMatching.dao.BookDao;
 
 /**
- * Servlet implementation class BookServlet
- */
+ * Servlet implementation class BookServlet *
+ **/
 
 @WebServlet("/BookServlet")
 public class BookServlet extends HttpServlet {
