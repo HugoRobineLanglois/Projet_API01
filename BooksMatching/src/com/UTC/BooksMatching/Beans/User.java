@@ -81,5 +81,10 @@ public class User implements Serializable{
 	public void setStatutCompte(String statutCompte) {
 		this.statutCompte = statutCompte;
 	}
+	@Override
+	public int compareTo(Admin arg0) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 }

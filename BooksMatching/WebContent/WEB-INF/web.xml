@@ -10,35 +10,11 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
-  <servlet-name>UserServlet</servlet-name>
+    <servlet-name>UserServlet</servlet-name>
     <servlet-class>com.UTC.BooksMatching.Servlets.UserServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>AdminServlet</servlet-name>
-    <servlet-class>com.UTC.BooksMatching.Servlets.AdminServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>BookServlet</servlet-name>
-    <servlet-class>com.UTC.BooksMatching.Servlets.BookServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>LoginServlet</servlet-name>
-    <servlet-class>com.UTC.BooksMatching.Servlets.LoginServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>UserServlet</servlet-name>
     <url-pattern>/creationUser</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>LoginServlet</servlet-name>
-    <url-pattern>/LoginServlet</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>AdminServlet</servlet-name>
-    <url-pattern>/AdminServlet</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>BookServlet</servlet-name>
-    <url-pattern>/BookServlet</url-pattern>
   </servlet-mapping>
 </web-app>
