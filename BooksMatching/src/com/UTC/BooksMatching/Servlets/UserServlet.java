@@ -1,6 +1,7 @@
 package com.UTC.BooksMatching.Servlets;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -46,22 +47,29 @@ public class UserServlet extends HttpServlet {
 		String mdp = request.getParameter("mdpUser");
 		
 		String message;
-		if ( nom.trim().isEmpty() || adresse.trim().isEmpty() || telephone.trim().isEmpty() ) {
-            message = "Erreur - Vous n'avez pas rempli tous les champs obligatoires. <br> <a href=\"CreationUser.jsp\">Cliquez ici</a> pour accï¿½der au formulaire de crï¿½ation d'un utilisateur.";
-        } else {
-            message = "Utilisateur créé avec succès !";
-        }
+		if (nom != null && adresse != null && telephone != null && mdp != null){
+			if ( nom.trim().isEmpty() || adresse.trim().isEmpty() || telephone.trim().isEmpty() ) {
+	            message = "Erreur - Vous n'avez pas rempli tous les champs obligatoires. <br> <a href=\"CreationUser.jsp\">Cliquez ici</a> pour accï¿½der au formulaire de crï¿½ation d'un utilisateur.";
+	        } else {
+	            message = "Utilisateur créé avec succès !";
+	        }
+			
+			//int id = Integer.parseInt(sid);
+			//User user = new User(id, nom, mdp, adresse, telephone, date, statutCompte);
+			User user = new User(nom, mdp, adresse, telephone, date, statutCompte);
+			
+			UserDao.insert(user);
+			
+			request.setAttribute("user", user);
+			request.setAttribute("message", message);
+		}
 		
-		//int id = Integer.parseInt(sid);
-		//User user = new User(id, nom, mdp, adresse, telephone, date, statutCompte);
-		User user = new User(nom, mdp, adresse, telephone, date, statutCompte);
+		List<User> listeU = UserDao.findall();
 		
-		UserDao.insert(user);
+		request.setAttribute("listeU", listeU);		
 		
-		request.setAttribute("user", user);
-		request.setAttribute("message", message);
 		
-		this.getServletContext().getRequestDispatcher( "/afficherUser.jsp" ).forward( request, response );
+		this.getServletContext().getRequestDispatcher( "/CreationUser.jsp" ).forward( request, response );
 	}
 
 	/**
