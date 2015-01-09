@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-        this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/LoginPage.jsp").forward(request, response);
 	}
 
 	/**
@@ -42,26 +42,22 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String nom = request.getParameter("name");
-        String pwd = request.getParameter("pwd");
+		String nom = request.getParameter("nomUser");
+        String pwd = request.getParameter("mdp");
+        
         HttpSession session = request.getSession();
         
         for(Admin a:AdminDao.findall()){
-        	if((a.getNom().compareTo(nom) == 0) && (a.getPwd().compareTo(pwd) == 0)) {
-        		if (a.getPwd().compareTo(pwd) == 0){
-        		  session.setAttribute("Status", "Admin");
-        		  this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+        	if((a.getNom()==nom) && (a.getPwd() == pwd))
+        		session.setAttribute("Status", "admin");
+        }
+        if (session.getAttribute("Status") == null){
+        	for(User u:UserDao.findall()){
+        		if((u.getNom()==nom) && (u.getPwd() == pwd))
+        			session.setAttribute("Status", "User");
         		}
-        	}
-        }
-        for(User u:UserDao.findall()){
-        	System.out.println(u.getNom());
-        	
-        	if((u.getNom().compareTo(nom) == 0) && (u.getPwd().compareTo(pwd) == 0)){
-        		session.setAttribute("Status", "User");
-        		this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
-        	}
-        }
+            }        
+        
         this.getServletContext().getRequestDispatcher("/LoginPage.jsp").forward(request, response);
  
 	}
