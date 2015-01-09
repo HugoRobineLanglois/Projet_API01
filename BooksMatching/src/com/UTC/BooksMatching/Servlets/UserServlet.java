@@ -13,11 +13,12 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import com.UTC.BooksMatching.Beans.User;
+import com.UTC.BooksMatching.dao.UserDao;
 
 /**
  * Servlet implementation class UserServlet
  */
-@WebServlet("/UserServlet")
+//@WebServlet("/UserServlet")
 public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -34,7 +35,7 @@ public class UserServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String sid = request.getParameter("id");
+		//String sid = request.getParameter("id");
 		String nom = request.getParameter("nomUser");
 		String adresse = request.getParameter("adresseUser");
 		String telephone = request.getParameter("telephoneUser");
@@ -48,11 +49,14 @@ public class UserServlet extends HttpServlet {
 		if ( nom.trim().isEmpty() || adresse.trim().isEmpty() || telephone.trim().isEmpty() ) {
             message = "Erreur - Vous n'avez pas rempli tous les champs obligatoires. <br> <a href=\"CreationUser.jsp\">Cliquez ici</a> pour accï¿½der au formulaire de crï¿½ation d'un utilisateur.";
         } else {
-            message = "Utilisateur crÃ©e avec succÃ©s !";
+            message = "Utilisateur créé avec succès !";
         }
 		
-		int id = Integer.parseInt(sid);
-		User user = new User(id, nom, mdp, adresse, telephone, date, statutCompte);
+		//int id = Integer.parseInt(sid);
+		//User user = new User(id, nom, mdp, adresse, telephone, date, statutCompte);
+		User user = new User(nom, mdp, adresse, telephone, date, statutCompte);
+		
+		UserDao.insert(user);
 		
 		request.setAttribute("user", user);
 		request.setAttribute("message", message);

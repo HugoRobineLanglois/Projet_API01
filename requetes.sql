@@ -92,8 +92,7 @@ VALUES
 
 SELECT * FROM `booksmatching`.`administrateurs`;
 
-
- DROP TABLE TABLE `booksmatching`.`books`; 
+DROP TABLE `booksmatching`.`books`; 
 
 CREATE TABLE `booksmatching`.`books` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -148,6 +147,6 @@ CREATE TABLE `booksmatching`.`note` (
   `dRecommend` INT NULL,
   PRIMARY KEY (`id`));
 
-
+select * from user;
 
 

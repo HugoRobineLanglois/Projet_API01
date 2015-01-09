@@ -20,7 +20,7 @@ import com.UTC.BooksMatching.dao.BookDao;
  * Servlet implementation class BookServlet *
  **/
 
-@WebServlet("/BookServlet")
+//@WebServlet("/BookServlet")
 public class BookServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;

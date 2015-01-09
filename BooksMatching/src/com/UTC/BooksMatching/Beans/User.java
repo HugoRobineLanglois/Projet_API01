@@ -24,6 +24,18 @@ public class User implements Serializable, Comparable<Admin>{
 		this.dateCreation = dateCreation;
 		this.statutCompte = statutCompte;
 	}
+	
+	public User(String nom, String pwd, String adresse,
+			String telephone, String dateCreation, String statutCompte) {
+		super();
+		this.nom = nom;
+		this.pwd = pwd;
+		this.adresse = adresse;
+		this.telephone = telephone;
+		this.dateCreation = dateCreation;
+		this.statutCompte = statutCompte;
+	}
+	
 	public int getId() {
 		return id;
 	}
