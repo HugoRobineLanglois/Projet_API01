@@ -4,9 +4,11 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>Insert title here</title>
+		<title>Menu de l'administrateur</title>
 	</head>
 	<body>
-	
+		<a href="AdminServlet">Management</a>
+		<a href="BookServlet.jsp">Books Management</a>
+		<a href="">rien</a>
 	</body>
 </html>

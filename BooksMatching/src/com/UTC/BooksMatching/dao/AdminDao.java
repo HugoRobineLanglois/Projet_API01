@@ -16,10 +16,13 @@ public class AdminDao {
 		try{
 			cnx = ConnexionBDD.getInstance().getCnx();
 			PreparedStatement preparedStatement = cnx.prepareStatement("INSERT"
-					+ " INTO administrateurs(id, nom, pwd) VALUES (null, ?, ?, ? );");
-			preparedStatement.setString(1,a.getNom());
-			preparedStatement.setString(3,a.getNom());
+					+ " INTO administrateurs(adresse, nom, prenom, pwd, telephone, date_creation) VALUES (?, ?, ?, ?, ?, ? );");
+			preparedStatement.setString(1,a.getAdresse());
+			preparedStatement.setString(2,a.getNom());
+			preparedStatement.setString(3,a.getPrenom());
 			preparedStatement.setString(4,a.getPwd());
+			preparedStatement.setString(5,a.getTelephone());
+			preparedStatement.setString(6,a.getDate_creation());
 			res = preparedStatement.executeUpdate();
 			
 			return res;
@@ -29,56 +32,65 @@ public class AdminDao {
 		}
 	}
 	
-	public static int delete (int id){
+	public static int delete (String adresse){
 		int res = 0;
 		
 		Connection cnx=null;
 		try{
 			cnx = ConnexionBDD.getInstance().getCnx();
-			PreparedStatement preparedStatement = cnx.prepareStatement("DELETE FROM administrateurs WHERE id=?;");
-			preparedStatement.setInt(1,id);
+			PreparedStatement preparedStatement = cnx.prepareStatement("DELETE FROM administrateurs WHERE adresse=?;");
+			preparedStatement.setString(1,adresse);
 			res = preparedStatement.executeUpdate();
 			
 			return res;
 			
 		} catch (SQLException e){
+			e.printStackTrace();
 			return res;
 		}
 	}
 	
 	public static int update (Admin a){
 		int res = 0;
-		int id;
-		String nom, adresse, pwd;
+		String nom, prenom, adresse, pwd, telephone, date_creation;
 		
 		Connection cnx=null;
 		
 		try{		
 			cnx = ConnexionBDD.getInstance().getCnx();	
-			PreparedStatement ps = cnx.prepareStatement("SELECT id, nom, pwd, adresse FROM administrateurs WHERE id = ?;");
-			ps.setString(1, "i");
+			PreparedStatement ps = cnx.prepareStatement("SELECT adresse, nom, prenom, pwd, telephone, date_creation FROM administrateurs WHERE adresse = ?;");
+			ps.setString(1, a.getAdresse());
 			ResultSet rs = ps.executeQuery();
-			id = rs.getInt("id");
-			nom = rs.getString("nom");
-			pwd = rs.getString("pwd");
 			adresse = rs.getString("adresse");
+			nom = rs.getString("nom");
+			prenom = rs.getString("prenom");
+			pwd = rs.getString("pwd");
+			telephone = rs.getString("telephone");
+			date_creation = rs.getString("date_creation");
 			
-			if(id!= a.getId())
-				id=a.getId();
+			
+			if(adresse!=a.getAdresse())
+				adresse=a.getAdresse();
 			if(nom!=a.getNom())
 				nom=a.getNom();
-			if(a.getAdresse()!=adresse)
-				adresse=a.getAdresse();
+			if(a.getPrenom()!=prenom)
+				prenom=a.getPrenom();
 			if(pwd!=a.getPwd())
 				pwd=a.getPwd();
+			if(a.getTelephone()!=telephone)
+				telephone=a.getTelephone();
+			if(a.getDate_creation()!=date_creation)
+				date_creation = a.getDate_creation();
 			
 			cnx = ConnexionBDD.getInstance().getCnx();
 			PreparedStatement preparedStatement = cnx.prepareStatement("UPDATE administrateurs"
 					+ " SET id=?, nom=?, tel=?, adresse=?, pdw=? WHERE id=?;");
-			preparedStatement.setInt(1,id);
+			preparedStatement.setString(1,adresse);
 			preparedStatement.setString(2,nom);
-			preparedStatement.setString(3,adresse);
+			preparedStatement.setString(3,prenom);
 			preparedStatement.setString(4,pwd);
+			preparedStatement.setString(5,telephone);
+			preparedStatement.setString(6, date_creation);
 			res = preparedStatement.executeUpdate();
 			
 			return res;
@@ -88,18 +100,53 @@ public class AdminDao {
 		}
 	}
 	
+public static Admin find(String adresse) {
+		
+
+		Admin a = null;
+		
+		Connection cnx=null;
+		try {
+			cnx = ConnexionBDD.getInstance().getCnx();
+			
+			//Requete
+			String sql = "SELECT adresse, nom, prenom, pwd, telephone, date_creation FROM administrateurs WHERE adresse=?";
+			PreparedStatement ps = cnx.prepareStatement(sql);
+			ps.setString(1, adresse);
+			
+			
+			//Execution et traitement de la réponse
+			ResultSet res = ps.executeQuery();
+			
+			while(res.next()){
+				a = new Admin(res.getString("adresse"),
+						res.getString("nom"),
+						res.getString("prenom"),
+						res.getString("pwd"),
+						res.getString("telephone"),
+						res.getString("date_creation"));
+				break;
+			}
+			
+			res.close();
+			ConnexionBDD.getInstance().closeCnx();			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return a;
+	}
 	
 	public static java.util.List<Admin> findall(){
 		java.util.List<Admin> lu = new ArrayList<Admin>();
 		Connection cnx = null;
 		try{
 			cnx = ConnexionBDD.getInstance().getCnx();
-			java.sql.PreparedStatement statement = cnx.prepareStatement("SELECT id,nom,tel,pwd FROM administrateurs;");
+			java.sql.PreparedStatement statement = cnx.prepareStatement("SELECT adresse, nom, prenom, pwd, telephone, date_creation FROM administrateurs;");
 	
 			ResultSet res = statement.executeQuery();
 
 			while (res.next()){
-				lu.add(new Admin(res.getInt("id"),res.getString("nom"), res.getString("pwd"), res.getString("tel")));
+				lu.add(new Admin(res.getString("adresse"),res.getString("nom"), res.getString("prenom"), res.getString("pwd"), res.getString("telephone"), res.getString("date_creation")));
 			}
 	
 			res.close();

@@ -49,7 +49,7 @@ public class LoginServlet extends HttpServlet {
         if((nom != null) && (pwd !=null) ){
 	        for(Admin a:AdminDao.findall()){
 	        	
-	        	if((a.getNom().compareTo(nom) == 0) && (a.getPwd().compareTo(pwd) == 0))
+	        	if((a.getAdresse().compareTo(nom) == 0) && (a.getPwd().compareTo(pwd) == 0))
 	        		session.setAttribute("Status", "Admin");
 	        }
 	        if (session.getAttribute("Status") == null){

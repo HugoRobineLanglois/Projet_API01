@@ -66,29 +66,46 @@ SELECT * FROM booksmatching.user;
 DROP TABLE `booksmatching`.`administrateurs`;
 
 CREATE TABLE `booksmatching`.`administrateurs` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `nom` VARCHAR(25) UNIQUE NOT NULL,
-  `tel` VARCHAR(15) NULL,
-  `pwd` VARCHAR(15) NULL,
-  PRIMARY KEY (`id`, `nom`));
+  `adresse` VARCHAR(25) ,
+  `nom` VARCHAR(25) NOT NULL,
+  `prenom` VARCHAR(25) NOT NULL,
+  `pwd` VARCHAR(15) NOT NULL,
+  `telephone` VARCHAR(15),
+  `date_creation` VARCHAR(20),
+	PRIMARY KEY(`adresse`));
 
 INSERT INTO `booksmatching`.`administrateurs`
-(`nom`,
-`tel`,
-`pwd`)
+	(`adresse`,
+	`nom`,
+	`prenom`,
+	`telephone`,
+	`pwd`,
+	`date_creation`)
 VALUES
-('rootAdmin1',
-'0643368953',
-'rootAdmin1'),
-('rootAdmin2',
-'062976435',
-'rootAdmin2'),
-('rootAdmin3',
-'064230956',
-'rootAdmin3'),
-('rootAdmin4',
-'0646994368',
-'rootAdmin4');
+	('rootAdmin1@mail.com',
+	'Admin1',
+	'root',
+	'rootadmin1',
+	'0643368953',
+	'01/01/2014 00:00:00'),
+	('rootAdmin2@mail.com',
+	'Admin2',
+	'root',
+	'rootadmin2',
+	'0643368953',
+	'01/06/2014 00:00:00'),
+	('rootAdmin3@mail.com',
+	'Admin3',
+	'root',
+	'rootadmin3',
+	'0643368953',
+	'01/03/2014 00:00:00'),
+	('rootAdmin4@mail.com',
+	'Admin4',
+	'root',
+	'rootadmin4',
+	'0643368953',
+	'01/01/2014 00:00:00');
 
 SELECT * FROM `booksmatching`.`administrateurs`;	
 
