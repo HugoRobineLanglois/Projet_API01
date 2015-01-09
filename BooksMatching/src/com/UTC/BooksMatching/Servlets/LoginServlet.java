@@ -48,12 +48,12 @@ public class LoginServlet extends HttpServlet {
         HttpSession session = request.getSession();
         
         for(Admin a:AdminDao.findall()){
-        	if((a.getNom()==nom) && (a.getPwd() == pwd))
+        	if((a.getNom().compareTo(nom) == 0) && (a.getPwd().compareTo(pwd) == 0))
         		session.setAttribute("Status", "admin");
         }
         if (session.getAttribute("Status") == null){
         	for(User u:UserDao.findall()){
-        		if((u.getNom()==nom) && (u.getPwd() == pwd))
+        		if((u.getNom().compareTo(nom) == 0) && (u.getPwd().compareTo(pwd) == 0))
         			session.setAttribute("Status", "User");
         		}
             }        
