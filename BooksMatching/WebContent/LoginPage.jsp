@@ -9,16 +9,16 @@
 	<body>
 		<%@ include file="EnTete.jsp"  %>
 		<h1>Welcome to the app, please login :</h1>
-		<form method="post" action="LoginServlet">
+		<form method="get" action="LoginServlet">
 	        <fieldset>
 	            <legend>Informations utilisateur</legend>
 	
-	            <label for="name">Login <span class="requis">*</span></label>
-	            <input type="text" id="name" name="name" value="" size="20" maxlength="20" />
+	            <label for="nomUser">Login <span class="requis">*</span></label>
+	            <input type="text" id="nomUser" name="nomUser" value="" size="20" maxlength="20" />
 	            <br />
 	            
-	            <label for="pwd"> Password <span class="requis">*</span></label>
-	            <input pattern=".{8,}" required title="8 characters minimum" type="password" name="pwd" id="pwd" >
+	            <label for="mdp"> Password <span class="requis">*</span></label>
+	            <input pattern=".{8,}" required title="8 characters minimum" type="password" id="mpdUser" >
 	            <br />
 	            
 	        </fieldset>
