@@ -20,7 +20,6 @@ public final class ConnexionBDD {
 			p.load(Thread.currentThread().getContextClassLoader().
 						getResourceAsStream("/com/UTC/BooksMatching/dao/confBDD.properties"));
 			
-				
 			// chargement du driver
 			Class.forName(p.getProperty("driver"));
 			cnx = DriverManager.getConnection(p.getProperty("url"),
