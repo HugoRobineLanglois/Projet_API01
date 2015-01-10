@@ -78,7 +78,10 @@ public class Admin implements Serializable, Comparable<Admin>{
 	@Override
 	public int compareTo(Admin arg0) {
 		// TODO Auto-generated method stub
-		return this.adresse.compareTo(arg0.getAdresse());
+		if((this.adresse.compareTo(arg0.getAdresse()) == 0) && (this.nom.compareTo(arg0.getNom())==0) && (this.prenom.compareTo(arg0.getPrenom())==0)
+				&& (this.pwd.compareTo(arg0.getPwd())==0) && (this.telephone.compareTo(arg0.getTelephone())==0) && (this.date_creation.compareTo(arg0.getDate_creation())==0))
+				return 0;
+		else return 1;
 	}
 
 }

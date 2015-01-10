@@ -84,7 +84,7 @@ public class AdminDao {
 			
 			cnx = ConnexionBDD.getInstance().getCnx();
 			PreparedStatement preparedStatement = cnx.prepareStatement("UPDATE administrateurs"
-					+ " SET id=?, nom=?, tel=?, adresse=?, pdw=? WHERE id=?;");
+					+ " SET adresse=?, nom=?,,prenom=?, pwd=?, telephone=?, date_creation=? WHERE adresse=?;");
 			preparedStatement.setString(1,adresse);
 			preparedStatement.setString(2,nom);
 			preparedStatement.setString(3,prenom);

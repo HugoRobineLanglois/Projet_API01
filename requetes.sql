@@ -78,8 +78,8 @@ INSERT INTO `booksmatching`.`administrateurs`
 	(`adresse`,
 	`nom`,
 	`prenom`,
-	`telephone`,
 	`pwd`,
+	`telephone`,
 	`date_creation`)
 VALUES
 	('rootAdmin1@mail.com',

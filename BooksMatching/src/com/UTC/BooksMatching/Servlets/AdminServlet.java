@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 import com.UTC.BooksMatching.Beans.Admin;
 import com.UTC.BooksMatching.Beans.auteurComp;
 import com.UTC.BooksMatching.Beans.editeurComp;
@@ -41,6 +45,7 @@ public class AdminServlet extends HttpServlet {
 		java.util.List<Admin> la = AdminDao.findall();
 		String adresse = null;
 		String action = request.getParameter("action");
+		System.out.println(action);
 		if (action != null) {
 			String idCh = request.getParameter("adresse");
 			if (idCh != null) {
@@ -53,9 +58,10 @@ public class AdminServlet extends HttpServlet {
 
 			if (action.equals("supprimer")) {
 				AdminDao.delete(adresse);
+				la = AdminDao.findall();
 			} else if (action.equals("modifier")) {
 				System.out.println("coucou je suis bien dans modifier");
-				request.setAttribute("uModif", AdminDao.find(adresse));
+				AdminDao.update(AdminDao.find(adresse));
 			} else if (action.equals("sort")) {
 				
 			}
@@ -75,11 +81,8 @@ public class AdminServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Je suis dans doPost de AdminServlet");
 		List<Admin> listeA = AdminDao.findall();
-		System.out.println("J'ai recuperÃ© tous les rÃ©sultats de find all");
 		String action = request.getParameter("action");
-		System.out.println(action);
 
 		if (action != null) {
 			if (action.equals("sort")) {
@@ -95,21 +98,35 @@ public class AdminServlet extends HttpServlet {
 					System.out.println("3");
 		}
 		} else {
-
+			//récupération de la date
+			DateTime dt = new DateTime();
+			DateTimeFormatter form = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
+			String date_creation = dt.toString(form);
+			
+			//Recuperation des champs
 			String adresse = request.getParameter("adresse");
 			String nom = request.getParameter("nom");
 			String prenom = request.getParameter("prenom");
 			String pwd = request.getParameter("pwd");
 			String telephone = request.getParameter("telephone");
-			String date_creation = request.getParameter("date_creation");
-			
-			Admin a = new Admin(adresse, nom, prenom, pwd, telephone, date_creation);
-			String idStr = request.getParameter("adresse");
-			if (idStr != null && !idStr.trim().equals("")) {
+			Admin tmp = new Admin (adresse, nom, prenom, pwd, telephone, date_creation);
+			System.out.println("avant find");
+			Admin a = AdminDao.find(adresse);
+			System.out.println("here");
+			//creation et insertion de l'admin, ou update si deja present en bdd
+			if(a.compareTo(tmp) == 0){
 				AdminDao.update(a);
-			} else {
-				AdminDao.insert(a);
+				System.out.println("update");
 			}
+			else{
+				System.out.println("insert");
+				Admin b = new Admin(adresse, nom, prenom, pwd, telephone, date_creation);
+				AdminDao.insert(b);
+				
+				
+			}
+			//on met a jour la liste apres ajout
+			listeA = AdminDao.findall();
 
 		}
 		
