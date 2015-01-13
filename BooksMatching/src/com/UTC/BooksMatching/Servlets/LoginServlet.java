@@ -49,17 +49,20 @@ public class LoginServlet extends HttpServlet {
         if((nom != null) && (pwd !=null) ){
 	        for(Admin a:AdminDao.findall()){
 	        	
-	        	if((a.getAdresse().compareTo(nom) == 0) && (a.getPwd().compareTo(pwd) == 0))
+	        	if((a.getNom().compareTo(nom) == 0) && (a.getPwd().compareTo(pwd) == 0)){
+	        		System.out.println("isAdmin "+a.getNom());
 	        		session.setAttribute("Status", "Admin");
-	        }
+	        	this.getServletContext().getRequestDispatcher("/MenuAdmin.jsp").forward(request, response);
+	        }}
 	        if (session.getAttribute("Status") == null){
 	        	for(User u:UserDao.findall()){
-	        		System.out.println(u.getNom());
-	        		if((u.getNom().compareTo(nom) == 0) && (u.getPwd().compareTo(pwd) == 0))
+	        		System.out.println("not admin " + u.getNom());
+	        		if((u.getNom().compareTo(nom) == 0) && (u.getPwd().compareTo(pwd) == 0)){
 	        			session.setAttribute("Status", "User");
-	        		}
+	        		this.getServletContext().getRequestDispatcher("/MenuUser.jsp").forward(request, response);
+	        		}}
 	            }
-	        this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+	        
         } else {
         	System.out.println("Erreur !");
         	this.getServletContext().getRequestDispatcher("/LoginPage.jsp").forward(request, response);

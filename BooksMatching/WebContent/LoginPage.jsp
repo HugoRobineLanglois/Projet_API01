@@ -7,7 +7,6 @@
 		<title>Welcome...</title>
 	</head>
 	<body>
-		<%@ include file="EnTete.jsp"  %>
 		<h1>Welcome to the app, please login :</h1>
 		<form method="post" action="LoginServlet">
 	        <fieldset>

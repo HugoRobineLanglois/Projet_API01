@@ -8,8 +8,8 @@
 		<title>Menu de l'administrateur</title>
 	</head>
 	<body>
-		<a href="AdminServlet">Management</a>
-		<a href="BookServlet.jsp">Books Management</a>
-		<a href="">rien</a>
+		<a href="AdminServlet">Management des admins</a> <br>
+		<a href="BookServlet.jsp">Books Management</a> <br> <!-- BookServlet.jsp ?? -->
+		<a href="UserServlet">User Management </a>
 	</body>
 </html>

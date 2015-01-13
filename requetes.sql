@@ -15,6 +15,7 @@
 -- insert into User (nom, adresse, telephone, dateCreation, statutCompte, mdp) values("test","test","test","test","test","test"); 
 
 -- select * from User;
+use booksmatching;
 
 DROP TABLE `booksmatching`.`User`;
 
@@ -108,4 +109,6 @@ VALUES
 	'01/01/2014 00:00:00');
 
 SELECT * FROM `booksmatching`.`administrateurs`;	
+
+select * from user;
 
