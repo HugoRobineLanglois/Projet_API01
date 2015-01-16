@@ -29,6 +29,7 @@ public class UserDao {
 			ConnexionBDD.getInstance().closeCnx();			
 		} catch (SQLException e){
 			e.printStackTrace();
+			return -42;
 		}
 		return res;
 	}

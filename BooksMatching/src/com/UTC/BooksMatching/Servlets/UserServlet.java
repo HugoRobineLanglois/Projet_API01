@@ -52,11 +52,9 @@ public class UserServlet extends HttpServlet {
 			}
 
 			if (action.equals("supprimer")) {
-				System.out.println("USER supprimer");
 				UserDao.delete(id);		
 				
 			} else if (action.equals("modifier")) {
-				System.out.println("USER modifier : " + UserDao.find(id).getNom());
 				request.setAttribute("uModif", UserDao.find(id));
 			} 
 		}
@@ -93,11 +91,9 @@ public class UserServlet extends HttpServlet {
 			
 			String idU = request.getParameter("id");
 			if (idU != null && !idU.trim().equals("")) {
-				System.out.println("COUCOU Update d'un nouveau user");
 				user.setId(Integer.parseInt(idU));
-				 UserDao.update(user);
+				 int res = UserDao.update(user);
 			} else {
-				System.out.println("COUCOU Ajout d'un nouveau user");
 				UserDao.insert(user);
 			}
 			
@@ -106,7 +102,6 @@ public class UserServlet extends HttpServlet {
 		}
 		
 		List<User> listeU = UserDao.findall();
-		
 		request.setAttribute("listeU", listeU);		
 		
 		

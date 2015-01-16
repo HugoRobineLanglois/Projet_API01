@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <%@page import="com.UTC.BooksMatching.Beans.User"%>
 <%@page import="java.util.List"%>
 <%@ include file="EnTete.jsp" %>
@@ -18,7 +16,7 @@
 				<th>Nom</th>
 				<th>Adresse</th>
 				<th>Telephone</th>
-				<th>Date de crÃ©ation</th>
+				<th>Date de création</th>
 				<th>Statut du compte</th>
 				<th>ACTIONS</th>
 			</tr>
@@ -51,8 +49,8 @@
 	<div>
 	    <form method="post" action="UserServlet">
 	        <fieldset>
-	            <legend>CrÃ©ation d'utilisateur</legend>
-	
+	            <legend>Création / Modification des utilisateurs</legend>
+	           
 	            <label for="nomUser">Nom <span class="requis">*</span></label>
 	            <input type="text" id="nomUser" name="nomUser" size="20" maxlength="20" value="${uModif.nom}" />
 	            <br />
@@ -61,7 +59,7 @@
 	            <input type="text" id="adresseUser" name="adresseUser" size="20" maxlength="20" value="${uModif.adresse}"/>
 	            <br />
 	
-	            <label for="telephoneUser">NumÃ©ro de tÃ©lÃ©phone<span class="requis">*</span></label>
+	            <label for="telephoneUser">Numéro de téléphone<span class="requis">*</span></label>
 	            <input type="text" id="telephoneUser" name="telephoneUser" size="20" maxlength="20" value="${uModif.telephone}"/>
 	            <br />
 	            
@@ -72,7 +70,7 @@
 	        </fieldset>
 	        <input type="hidden" name="id" value="${uModif.id}"/>
 	        <input type="submit" value="Valider"  />
-	        <input type="reset" value="Remettre Ã  zÃ©ro" /> <br />
+	        <input type="reset" value="Remettre à zéro" /> <br />
 	    </form>
 	</div>
 </body>
