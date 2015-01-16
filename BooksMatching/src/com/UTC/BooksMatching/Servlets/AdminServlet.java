@@ -72,8 +72,7 @@ public class AdminServlet extends HttpServlet {
 		request.setAttribute("listeA", la);
 		System.out.println("Je sors de doGet et retourne la liste");
 		// rediriger vers une page
-		request.getRequestDispatcher("Admin_Management.jsp")
-				.forward(request, response);
+		request.getRequestDispatcher("Admin_Management.jsp").forward(request, response);
 	}
 
 

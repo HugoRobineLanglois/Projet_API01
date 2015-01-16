@@ -4,6 +4,8 @@
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<title>Welcome...</title>
+	<link rel="stylesheet" type="text/css" href="semantic.css">
+	<link rel="stylesheet" type="text/css" href="icon.css">
 	</head>
 	<body>
 		<h1>Welcome to the app, please login :</h1>
