@@ -1,6 +1,7 @@
 package com.UTC.BooksMatching.Servlets;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,9 +14,14 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+
 import com.UTC.BooksMatching.Beans.MailSendingManager;
 import com.UTC.BooksMatching.Beans.User;
 import com.UTC.BooksMatching.dao.AppConfigDAO;
+
+import com.UTC.BooksMatching.Beans.Books;
+import com.UTC.BooksMatching.Beans.User;
+import com.UTC.BooksMatching.dao.BookDao;
 import com.UTC.BooksMatching.dao.UserDao;
 
 /**
@@ -37,8 +43,38 @@ public class UserServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//String sid = request.getParameter("id");
+		int id = 0;
+		String action = request.getParameter("action");
+		
+		if (action != null) {
+			String idCh = request.getParameter("id");
+			if (idCh != null) {
+				try {
+					id = Integer.parseInt(idCh);
+				} catch (Exception e) {
+
+				}
+			}
+
+			if (action.equals("supprimer")) {
+				System.out.println("USER supprimer");
+				UserDao.delete(id);		
+				
+			} else if (action.equals("modifier")) {
+				System.out.println("USER modifier : " + UserDao.find(id).getNom());
+				request.setAttribute("uModif", UserDao.find(id));
+			} 
+		}
+		
+		List<User> listeU = UserDao.findall();
+		request.setAttribute("listeU", listeU);		
+		this.getServletContext().getRequestDispatcher( "/GestionUser.jsp" ).forward( request, response );
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String nom = request.getParameter("nomUser");
 		String adresse = request.getParameter("adresseUser");
 		String telephone = request.getParameter("telephoneUser");
@@ -60,27 +96,38 @@ public class UserServlet extends HttpServlet {
 			
 			//int id = Integer.parseInt(sid);
 			//User user = new User(id, nom, mdp, adresse, telephone, date, statutCompte);
-			User user = new User(nom, mdp, adresse, telephone, date, statutCompte);
+			User user = new User(nom, mdp, adresse, telephone, null, statutCompte);
 			
 			AppConfigDAO appconfig = new AppConfigDAO();
 			
-			MailSendingManager mailMan = new MailSendingManager();
-            String subject = "Your Reading Manager account is ready";
-			String body = "<h3>Your Reading Manager account is ready!</h3>"
-					+ "<p>Dear "+((User)user).getNom()+"</p>"
-					+"<p>Here is your password: "+user.getPwd()+"</p>"
-					+"<p>Complete your registration by activating your account below</p>"
-					+"<a href="+appconfig.getAppUrl()+appconfig.getAppName()+"/ActivateAccount?user="+user.getAdresse()+"'>Activate Account</a>"
-					+"<p>Happy Rating!<br/>Reading Manager Team.</p>";
+
 			
-			try {
-				mailMan.sendMail(user.getAdresse(), subject, body);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+
 			
 			UserDao.insert(user);
+			String idU = request.getParameter("id");
+			if (idU != null && !idU.trim().equals("")) {
+				System.out.println("COUCOU Update d'un nouveau user");
+				user.setId(Integer.parseInt(idU));
+				 UserDao.update(user);
+			} else {
+				System.out.println("COUCOU Ajout d'un nouveau user");
+				UserDao.insert(user);
+				MailSendingManager mailMan = new MailSendingManager();
+	            String subject = "Your Reading Manager account is ready";
+				String body = "<h3>Your Reading Manager account is ready!</h3>"
+						+ "<p>Dear "+((User)user).getNom()+"</p>"
+						+"<p>Here is your password: "+user.getPwd()+"</p>"
+						+"<p>Complete your registration by activating your account below</p>"
+						+"<a href="+appconfig.getAppUrl()+appconfig.getAppName()+"/ActivateAccount?user="+user.getAdresse()+"'>Activate Account</a>"
+						+"<p>Happy Rating!<br/>Reading Manager Team.</p>";
+				try {
+					mailMan.sendMail(user.getAdresse(), subject, body);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 			
 			request.setAttribute("user", user);
 			request.setAttribute("message", message);
@@ -92,14 +139,6 @@ public class UserServlet extends HttpServlet {
 		
 		
 		this.getServletContext().getRequestDispatcher( "/GestionUser.jsp" ).forward( request, response );
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }

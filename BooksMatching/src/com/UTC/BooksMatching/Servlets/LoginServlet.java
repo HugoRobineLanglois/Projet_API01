@@ -33,7 +33,6 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		
 		HttpSession session = request.getSession();
 		String action = request.getParameter("action");
@@ -50,7 +49,6 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		String nom = request.getParameter("nomUser");
         String pwd = request.getParameter("mdp");
         
@@ -58,22 +56,30 @@ public class LoginServlet extends HttpServlet {
         if((nom != null) && (pwd !=null) ){
 	        for(Admin a:AdminDao.findall()){
 	        	
-	        	if((a.getAdresse().compareTo(nom) == 0) && (a.getPwd().compareTo(pwd) == 0))
+	        	if((a.getNom().compareTo(nom) == 0) && (a.getPwd().compareTo(pwd) == 0)){
+	        		System.out.println("isAdmin "+a.getNom());
 	        		session.setAttribute("Status", "Admin");
-	        }
+	        		}
+	        	}
 	        if (session.getAttribute("Status") == null){
 	        	for(User u:UserDao.findall()){
-	        		System.out.println(u.getNom());
-	        		if((u.getNom().compareTo(nom) == 0) && (u.getPwd().compareTo(pwd) == 0))
+	        		System.out.println("not admin " + u.getNom());
+	        		if((u.getNom().compareTo(nom) == 0) && (u.getPwd().compareTo(pwd) == 0)){
 	        			session.setAttribute("Status", "User");
+
 	        			session.setAttribute("User",u.getId());
 	        		}
-	            }
-	        this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+
+	        		}
+	        	}
+	            
+	        
         } else {
         	System.out.println("Erreur !");
         	this.getServletContext().getRequestDispatcher("/LoginPage.jsp").forward(request, response);
         }
+    	this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+
 	}
 
 }
