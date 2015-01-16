@@ -18,7 +18,7 @@
 				      <label for="nomUser">Login</label>
 				      <div class="ui left icon input">
 					      <i class="user icon"></i>
-					      <input type="text" id="nomUser" name="nomUser" value="" size="20" maxlength="20" />
+					      <input type="mail" id="nomUser" name="nomUser" value="" size="20" maxlength="20" />
 					   </div>
 				    </div>
 				    <div class="field">
@@ -29,6 +29,28 @@
 					    </div>
 				    </div>
 			  </div>
+			  <%
+					Object alert = request.getAttribute("alert");
+					if(alert!=null){
+						String alrt = (String)alert;
+						%>
+						<p>
+							Attention : <%=alrt%>	
+						</p>	
+						<%
+					}
+				%>
+				<%
+					Object activation = request.getAttribute("Activation");
+					if(activation!=null){
+						String activate = (String)activation;
+						%>
+						<p>
+							Félicitations ! Votre compte <%=activate %> est activé !	
+						</p>	
+						<%
+					}
+				%>
 	
 <!-- 	            <label for="nomUser">Login <span class="requis">*</span></label> -->
 <!-- 	            <input type="text" id="nomUser" name="nomUser" value="" size="20" maxlength="20" /> -->

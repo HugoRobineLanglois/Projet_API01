@@ -119,7 +119,7 @@
 				<input type="text" name="prenom" id="prenom" value="${uModif.prenom}"/>
 				<br />
 				<label for="pwd">Mot de passe :</label>
-				<input type="password" name="pwd" id="pwd" value="${uModif.pwd}"/>
+				<input type="password" pattern=".{8,}" required title="8 caractères minimum" name="pwd" id="pwd" value="${uModif.pwd}"/>
 				<br />
 				<label for="telephone">Telephone :</label>
 				<input type="text" name="telephone" id="telephone" value="${uModif.telephone}"/>

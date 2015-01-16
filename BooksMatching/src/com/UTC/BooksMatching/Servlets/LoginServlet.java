@@ -56,30 +56,43 @@ public class LoginServlet extends HttpServlet {
         if((nom != null) && (pwd !=null) ){
 	        for(Admin a:AdminDao.findall()){
 	        	
-	        	if((a.getAdresse().compareTo(nom) == 0) && (a.getPwd().compareTo(pwd) == 0)){
-	        		System.out.println("isAdmin "+a.getNom());
-	        		session.setAttribute("Status", "Admin");
-	            	this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
-
-	        		}
+	        	if(a.getAdresse().compareTo(nom) == 0) {
+	        			if (a.getPwd().compareTo(pwd) == 0){
+			        		System.out.println("isAdmin "+a.getNom());
+			        		session.setAttribute("Status", "Admin");
+			            	this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+	        			}
+	        			else{
+	        				request.setAttribute("alert", "Mot de passe erroné !");
+		        	    	this.getServletContext().getRequestDispatcher("/LoginPage.jsp").forward(request, response);
+	        			}
+	        			
 	        	}
+	        }
 	        if (session.getAttribute("Status") == null){
 	        	for(User u:UserDao.findall()){
-	        		System.out.println("not admin " + u.getNom());
-	        		if((u.getNom().compareTo(nom) == 0) && (u.getPwd().compareTo(pwd) == 0)){
-	        			session.setAttribute("Status", "User");
-
-	        			session.setAttribute("User",u.getId());
-	        	    	this.getServletContext().getRequestDispatcher("/BookServlet").forward(request, response);
-
+	        		if(u.getAdresse().compareTo(nom) == 0){
+	        				if(u.getPwd().compareTo(pwd) == 0){
+			        			session.setAttribute("Status", "User");
+			        			System.out.println("isUser"+u.getNom());
+			        			session.setAttribute("User",u.getId());
+			        	    	this.getServletContext().getRequestDispatcher("/BookServlet").forward(request, response);
+	        				}
+	        				else {
+	        					request.setAttribute("alert", "Mot de passe erroné !");
+			        	    	this.getServletContext().getRequestDispatcher("/LoginPage.jsp").forward(request, response);
+	        				}
+	        		
 	        		}
 
 	        		}
 	        	}
-	            
+	        
+	        request.setAttribute("alert", "Login non reconnu");
+        	this.getServletContext().getRequestDispatcher("/LoginPage.jsp").forward(request, response); 
 	        
         } else {
-        	System.out.println("Erreur !");
+        	request.setAttribute("alert", "Veuillez entrer une adresse de login et un mot de passe");
         	this.getServletContext().getRequestDispatcher("/LoginPage.jsp").forward(request, response);
         }
 

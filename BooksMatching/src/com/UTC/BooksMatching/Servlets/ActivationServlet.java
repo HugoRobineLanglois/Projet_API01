@@ -40,11 +40,8 @@ public class ActivationServlet extends HttpServlet {
 
 				}
 			}
-		System.out.println(idCh);
-		System.out.println(id);
 		if (UserDao.Activation(id) ==0)
-			System.out.println("Activation réussi");
-		System.out.println("3");
+			request.setAttribute("activation", UserDao.find(id).getAdresse());
 		request.getRequestDispatcher("/LoginPage.jsp").forward(request, response);
 
 	}
