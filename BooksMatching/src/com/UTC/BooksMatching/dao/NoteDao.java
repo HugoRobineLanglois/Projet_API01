@@ -7,14 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 
-
-
-
-
-import com.UTC.BooksMatching.Beans.Books;
 import com.UTC.BooksMatching.Beans.Note;
-import com.UTC.BooksMatching.Beans.NoteDetail;
-import com.UTC.BooksMatching.Beans.User;
 import com.UTC.BooksMatching.dao.ConnexionBDD;
 
 public class NoteDao {
@@ -24,11 +17,11 @@ public class NoteDao {
 		int res = 0;
 		Connection cnx = null;
 		try {
-			System.out.println("Je vais faire get instance");
+			System.out.println("INSERT NOTE Je vais faire get instance");
 			cnx=ConnexionBDD.getInstance().getCnx();
-			System.out.println("J'ai fini get instance");
-			
-			String sql = "INSERT INTO note (idBook, idUser, qualityWriting, desireReed, sameAutor, recommend, validate, date, comment ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			System.out.println("INSERT NOTE J'ai fini get instance");
+			System.out.println("INSERT NOTE insert statement");
+			String sql = "INSERT INTO note (idBook, idUser, qualityWriting, desireReed, sameAutor, recommend, validate, date, comment) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			java.sql.PreparedStatement ps = cnx.prepareStatement(sql);
 			ps.setInt(1, n.getIdBook());
 			ps.setInt(2, n.getIdUser());
@@ -39,9 +32,9 @@ public class NoteDao {
 			ps.setInt(7,n.getIsValid());
 			ps.setString(8,n.getDate());
 			ps.setString(9,n.getComments());
-			
+			System.out.println(sql);
 			res=ps.executeUpdate();
-			
+			System.out.println("fin de statement");
 			ConnexionBDD.getInstance().closeCnx();			
 		} catch (SQLException e){
 			e.printStackTrace();
@@ -67,7 +60,7 @@ public class NoteDao {
 			ps.setInt(2, idUser);
 			
 			
-			//Execution et traitement de la réponse
+			//Execution et traitement de la rÃ©ponse
 			ResultSet res = ps.executeQuery();
 			
 			while(res.next()){
@@ -90,7 +83,7 @@ public class NoteDao {
 		}
 
 		//
-		System.out.println("J'ai trouvé l'eval et je le retourne en objet");
+		System.out.println("J'ai trouvÃ© l'eval et je le retourne en objet");
 		return b;
 	}
 	
@@ -99,20 +92,22 @@ public class NoteDao {
 		Connection cnx=null;
 		try {
 			cnx=ConnexionBDD.getInstance().getCnx();
-			
-			String sql = "UPDATE note SET idBook= ?, idUser = ?, qualityWriting= ?, desireReed= ?, sameAutor= ?, recommend =?, validate = ?, date= ?, comment ? WHERE idUser = ? AND idBook= ?";
+			System.out.println("je suis ds update de note");
+			String sql = "UPDATE note SET  qualityWriting= ?, desireReed= ?, sameAutor= ?, recommend =?, validate = ?, date= ?, comment= ? WHERE idUser = ? AND idBook= ?";
 			java.sql.PreparedStatement ps = cnx.prepareStatement(sql);
-			ps.setInt(1, n.getIdBook());
-			ps.setInt(2, n.getIdUser());
-			ps.setInt(3,n.getQualityOfWriting());
-			ps.setInt(4, n.getDesireToKeepReading());
-			ps.setInt(5,n.getDesireFromSameAuteur());
-			ps.setInt(6,n.getDesireToRecommend());
-			ps.setInt(7,n.getIsValid());
-			ps.setString(8, n.getDate());
-			ps.setString(9, n.getComments());
-			ps.setInt(10, n.getIdBook());
-			ps.setInt(11, n.getIdUser());
+
+			ps.setInt(1,n.getQualityOfWriting());
+			ps.setInt(2, n.getDesireToKeepReading());
+			ps.setInt(3,n.getDesireFromSameAuteur());
+			ps.setInt(4,n.getDesireToRecommend());
+			ps.setInt(5,n.getIsValid());
+			ps.setString(6, n.getDate());
+			ps.setString(7, n.getComments());
+			ps.setInt(8, n.getIdUser());
+			ps.setInt(9, n.getIdBook());
+			
+			
+			System.out.println(n.getComments());
 			
 			res=ps.executeUpdate();
 			
@@ -138,7 +133,7 @@ public class NoteDao {
 			ps.setInt(1,idUser);
 			ps.setInt(2,idBook);
 			
-			//Execution et traitement de la réponse
+			//Execution et traitement de la rÃ©ponse
 			res = ps.executeUpdate();
 			
 			ConnexionBDD.getInstance().closeCnx();			
@@ -210,21 +205,6 @@ public class NoteDao {
 			e.printStackTrace();
 			return lb;
 		}
-	}
-	
-	public static java.util.List<NoteDetail> findallDetails(){
-		java.util.List<Note> ln = findall();
-		java.util.List<NoteDetail> lnd = new ArrayList<NoteDetail>();
-		User u = null;
-		Books b = null; 
-		NoteDetail nd = null;
-		for (Note n : ln){
-			u = UserDao.find(n.getIdUser());
-			b = BookDao.find(n.getIdBook());
-			nd = new NoteDetail(b, u, n);
-			lnd.add(nd);
-		}		
-		return lnd;
 	}
 }
 

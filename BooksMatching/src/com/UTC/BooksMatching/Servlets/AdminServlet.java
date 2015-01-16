@@ -61,6 +61,7 @@ public class AdminServlet extends HttpServlet {
 				la = AdminDao.findall();
 			} else if (action.equals("modifier")) {
 				System.out.println("coucou je suis bien dans modifier");
+				request.setAttribute("Modif", "oui");
 				request.setAttribute("uModif", AdminDao.find(adresse));
 				la = AdminDao.findall();
 			} else if (action.equals("sort")) {
@@ -110,14 +111,8 @@ public class AdminServlet extends HttpServlet {
 			String pwd = request.getParameter("pwd");
 			String telephone = request.getParameter("telephone");
 			Admin tmp = new Admin (adresse, nom, prenom, pwd, telephone, date_creation);
-			System.out.println("avant find");
-			
-			System.out.println("here");
-			//creation et insertion de l'admin, ou update si deja present en bdd
 
-			AdminDao.insert(tmp);
-			System.out.println("here2");
-		
+			System.out.println(tmp.getAdresse());
 			if(AdminDao.find(tmp.getAdresse()) != null){
 				AdminDao.update(tmp);
 			} else {
@@ -127,7 +122,7 @@ public class AdminServlet extends HttpServlet {
 			listeA = AdminDao.findall();
 
 		}
-		
+		request.setAttribute("Modif",0);
 		request.setAttribute("listeA", listeA);
 		request.getRequestDispatcher("Admin_Management.jsp").forward(request, response);
 	}

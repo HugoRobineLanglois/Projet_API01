@@ -52,45 +52,20 @@ public class AdminDao {
 	
 	public static int update (Admin a){
 		int res = 0;
-		String nom, prenom, adresse, pwd, telephone, date_creation;
 		
 		Connection cnx=null;
 		
 		try{		
 			cnx = ConnexionBDD.getInstance().getCnx();	
-			PreparedStatement ps = cnx.prepareStatement("SELECT adresse, nom, prenom, pwd, telephone, date_creation FROM administrateurs WHERE adresse = ?;");
-			ps.setString(1, a.getAdresse());
-			ResultSet rs = ps.executeQuery();
-			adresse = rs.getString("adresse");
-			nom = rs.getString("nom");
-			prenom = rs.getString("prenom");
-			pwd = rs.getString("pwd");
-			telephone = rs.getString("telephone");
-			date_creation = rs.getString("date_creation");
-			
-			
-			if(adresse!=a.getAdresse())
-				adresse=a.getAdresse();
-			if(nom!=a.getNom())
-				nom=a.getNom();
-			if(a.getPrenom()!=prenom)
-				prenom=a.getPrenom();
-			if(pwd!=a.getPwd())
-				pwd=a.getPwd();
-			if(a.getTelephone()!=telephone)
-				telephone=a.getTelephone();
-			if(a.getDate_creation()!=date_creation)
-				date_creation = a.getDate_creation();
 			
 			cnx = ConnexionBDD.getInstance().getCnx();
 			PreparedStatement preparedStatement = cnx.prepareStatement("UPDATE administrateurs"
-					+ " SET adresse=?, nom=?,,prenom=?, pwd=?, telephone=?, date_creation=? WHERE adresse=?;");
-			preparedStatement.setString(1,adresse);
-			preparedStatement.setString(2,nom);
-			preparedStatement.setString(3,prenom);
-			preparedStatement.setString(4,pwd);
-			preparedStatement.setString(5,telephone);
-			preparedStatement.setString(6, date_creation);
+					+ " SET nom=?,prenom=?, pwd=?, telephone=? WHERE adresse=?;");
+			preparedStatement.setString(1,a.getNom());
+			preparedStatement.setString(2,a.getPrenom());
+			preparedStatement.setString(3,a.getPwd());
+			preparedStatement.setString(4,a.getTelephone());
+			preparedStatement.setString(5, a.getAdresse());
 			res = preparedStatement.executeUpdate();
 			
 			return res;

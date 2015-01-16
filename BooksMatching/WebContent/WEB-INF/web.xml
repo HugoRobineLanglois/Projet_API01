@@ -29,7 +29,7 @@
     <servlet-name>NoteServletAdmin</servlet-name>
     <servlet-class>com.UTC.BooksMatching.Servlets.NoteServletAdmin</servlet-class>
   </servlet>
-   <servlet>
+  <servlet>
     <servlet-name>ActivationServlet</servlet-name>
     <servlet-class>com.UTC.BooksMatching.Servlets.ActivationServlet</servlet-class>
   </servlet>
