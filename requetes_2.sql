@@ -63,6 +63,8 @@ VALUES
 'active'); 
 SELECT * FROM booksmatching.User;
 
+UPDATE `booksmatching`.`User` SET `statutCompte` = 'Actif' WHERE `id` = 13;
+
  DROP TABLE `booksmatching`.`administrateurs`;
 
 CREATE TABLE `booksmatching`.`administrateurs` (

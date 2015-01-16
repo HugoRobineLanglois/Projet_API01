@@ -37,7 +37,7 @@ public class LoginServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String action = request.getParameter("action");
 		if(action.compareTo("deconnexion") == 0){
-			session.setAttribute("Status","rien");
+			session.setAttribute("Status",null);
 			session.setAttribute("User","-1");
 		}
 		
@@ -59,6 +59,8 @@ public class LoginServlet extends HttpServlet {
 	        	if((a.getAdresse().compareTo(nom) == 0) && (a.getPwd().compareTo(pwd) == 0)){
 	        		System.out.println("isAdmin "+a.getNom());
 	        		session.setAttribute("Status", "Admin");
+	            	this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+
 	        		}
 	        	}
 	        if (session.getAttribute("Status") == null){
@@ -68,6 +70,8 @@ public class LoginServlet extends HttpServlet {
 	        			session.setAttribute("Status", "User");
 
 	        			session.setAttribute("User",u.getId());
+	        	    	this.getServletContext().getRequestDispatcher("/BookServlet").forward(request, response);
+
 	        		}
 
 	        		}
@@ -78,7 +82,6 @@ public class LoginServlet extends HttpServlet {
         	System.out.println("Erreur !");
         	this.getServletContext().getRequestDispatcher("/LoginPage.jsp").forward(request, response);
         }
-    	this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 
 	}
 

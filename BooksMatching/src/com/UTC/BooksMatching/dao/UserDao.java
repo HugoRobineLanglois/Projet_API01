@@ -129,4 +129,45 @@ public class UserDao {
 			return u;
 		}
 	}
+	
+	public static User find(String adresse) {
+		User u = null;
+		Connection cnx = null;
+		try{
+		cnx = ConnexionBDD.getInstance().getCnx();
+		java.sql.PreparedStatement statement = cnx.prepareStatement("SELECT * FROM user WHERE adresse = ?;");
+		statement.setString(1, adresse);
+		ResultSet res = statement.executeQuery();
+
+		while (res.next()){
+			u = new User (res.getInt("id"),res.getString("nom"), res.getString("pwd"), res.getString("adresse"), res.getString("telephone"), res.getString("dateCreation"), res.getString("statutCompte"));
+			break;
+		}
+
+		res.close();
+
+		ConnexionBDD.getInstance().closecnx();
+
+		return u;
+
+		} catch(SQLException e){
+			e.printStackTrace();
+			return u;
+		}
+	}
+	
+	public static int Activation(int id){
+		
+		Connection cnx = null;
+		try {
+			cnx = ConnexionBDD.getInstance().getCnx();
+			java.sql.PreparedStatement statement = cnx.prepareStatement("update booksmatching.user SET statutCompte='Actif' WHERE id = ? ");
+			statement.setInt(1, id);
+			statement.executeUpdate();
+		} catch (SQLException e){
+			e.printStackTrace();
+			return 1;
+		}
+		return 0;
+	}
 }

@@ -61,7 +61,8 @@ public class AdminServlet extends HttpServlet {
 				la = AdminDao.findall();
 			} else if (action.equals("modifier")) {
 				System.out.println("coucou je suis bien dans modifier");
-				AdminDao.update(AdminDao.find(adresse));
+				request.setAttribute("uModif", AdminDao.find(adresse));
+				la = AdminDao.findall();
 			} else if (action.equals("sort")) {
 				
 			}

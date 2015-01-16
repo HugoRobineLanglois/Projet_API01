@@ -21,7 +21,41 @@
 			<input type="hidden" name="action" value="sort" />
 			<input type="submit" value="Trier" />
 		</form>
+		<div class="ui form segment">
+		<div class="grouped inline fields">
+			<form method="post" action="BookServlet" class="ui teal dividing header">
+		          
+		    	<label class="content">Trier par :  </label>
+		   			<div class="sub header">
+				        <input name="sortType" type="radio" value="1"/>
+				        <label>Titre</label>
 		
+				        <input name="sortType" type="radio" value="2"/>
+				        <label>Auteur</label>
+
+		        		 <input name="sortType" type="radio" value="3"/>
+		       			 <label>Editeur</label>
+		     
+
+						<input type="hidden" name="action" value="sort" />
+		    			<input type="submit" value="Trier" class="ui button" style="width: 10%; "/>
+		    
+		    		 </div>
+	    		</form>
+	    
+	    
+	   		 <br>
+			    <form method="post" action="BookServlet">
+					<div class="ui action left icon input ">
+					  <i class="search icon"></i>
+					  <input type="text" placeholder="Rechercher..." name="toLook">
+					  <input type="hidden" name="action" value="search" />
+					  <div type="submit" value="Rechercher" class="ui teal button" style="text-align: center; width: 10%">Recherche</div>
+					</div>
+				</form>
+	    
+	    	</div>	
+ 		</div> 
 		<table class="ui definition table">
 			<thead>
 			<tr>
@@ -49,7 +83,8 @@
 									<td><%=a.getTelephone()%></td>
 									<td><%=a.getDate_creation()%></td>
 									<td>
-										<a href="AdminServlet?action=supprimer&adresse=<%=a.getAdresse()%>">Supprimer</a>
+										<a href="AdminServlet?action=supprimer&adresse=<%=a.getAdresse()%>" class="ui button">Supprimer</a>
+										<a href="AdminServlet?action=modifier&adresse=<%=a.getAdresse()%>" class="ui button">Modifier</a>
 									</td>
 								</tr>
 							
@@ -89,12 +124,10 @@
 				<label for="telephone">Telephone :</label>
 				<input type="text" name="telephone" id="telephone" value="${uModif.telephone}"/>
 				<br />
-				<!-- <input type="hidden" name="id" value="${uModif.id}"/> -->
 
 			<div class="ui buttons">
 				    <input class="ui button" type="reset"/>
 				    <div class="or"></div>
-				    <input type="hidden" name="id" value="${uModif.id}"/>
 				    <input class="ui teal button" type="submit"/>
 			</div>
 		
