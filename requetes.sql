@@ -158,7 +158,20 @@ insert into booksmatching.note (idBook, idUser, validate) values (2,1, 1),(3,2, 
 insert into booksmatching.note(idBook, idUser, validate) value (4,3, 1);
 insert into booksmatching.note(idBook, idUser, validate) value (1,4, 1);
 
+DROP TABLE `booksmatching`.`matches`;
+
+CREATE TABLE  `booksmatching`.`matches` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user` int NULL,
+  `closest` VARCHAR(45) NULL,
+  `farthest` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`));
+  
+INSERT INTO  `booksmatching`.`matches`(user, closest, farthest)  VALUES (1, 2, 4), (2, 3, 3), (3, 4, 2);
+
 select * from user;
+select * from administrateurs;
 select * from books;
 select * from note;
+select * from matches;
 

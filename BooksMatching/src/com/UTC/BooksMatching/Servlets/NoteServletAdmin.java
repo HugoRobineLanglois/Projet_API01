@@ -37,12 +37,27 @@ public class NoteServletAdmin extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("je suis dans doGet");
 		java.util.List<NoteDetail> listeN = NoteDao.findallDetails();
+		int idUser = 0, idBook = 0;
 		String action = request.getParameter("action");
 		if (action != null) {
+			String idU = request.getParameter("user");
+			String idB = request.getParameter("book");
+			if (idU != null && idB != null) {
+				try {
+					idUser = Integer.parseInt(idU);
+					idBook = Integer.parseInt(idB);
+					
+				} catch (Exception e) {
+
+				}
+			} 
 			if (action.equals("sort")) {
 				Collections.sort(listeN);
+			} else if (action.equals("modifier")) {
+				System.out.println("NoteAdmin modifier");
+				request.setAttribute("nModif", NoteDao.find(idUser, idBook));
+				listeN= NoteDao.findallDetails();
 			}
 		}		
 		request.setAttribute("listeN", listeN);

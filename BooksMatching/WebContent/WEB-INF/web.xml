@@ -37,7 +37,6 @@
     <servlet-name>ActivationServlet</servlet-name>
     <url-pattern>/ActivationServlet</url-pattern>
   </servlet-mapping>
->>>>>>> origin/master
   <servlet-mapping>
     <servlet-name>UserServlet</servlet-name>
     <url-pattern>/UserServlet</url-pattern>

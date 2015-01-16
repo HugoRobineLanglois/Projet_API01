@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@page import="com.UTC.BooksMatching.Beans.NoteDetail"%>
 <%@page import="java.util.List"%>
+<%@ include file="EnTete.jsp"  %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -113,6 +114,64 @@
 	%>
   </tbody>
 </table>
+
+
+<div class="ui tertiary segment">
+	<div class="ui block header">
+      <i class="sliders icon"></i>
+      <div class="content">
+        Notez ce livre
+        <div class="sub header">(ou modifier la notation)</div>
+      </div>
+    </div>
+
+	<form class="ui form segment" method="post" action="NoteServlet">
+		<div class="segment">
+		<label for="qualityOfWriting">La qualité de l'écriture : </label>
+				<input name="qualityOfWriting" type="radio" value="0" style="margin-left: 10%"/>
+		        <label>0</label>
+		
+				<input name="qualityOfWriting" type="radio" value="1" style="margin-left: 10%"/>
+		        <label>1</label>
+
+		        <input name="qualityOfWriting" type="radio" value="2" style="margin-left: 10%"/>
+		        <label>2</label>
+
+		        <input name="qualityOfWriting" type="radio" value="3" style="margin-left: 10%"/>
+		        <label>3</label>
+		        
+		        <input name="qualityOfWriting" type="radio" value="4" style="margin-left: 10%"/>
+		        <label>4</label>
+		        
+		        <input name="qualityOfWriting" type="radio" value="5" style="margin-left: 10%"/>
+		        <label>5</label>
+		</div>
+		<br />
+		<label for="desireToKeepReading">L'envie de continuer la lecture: </label>
+		<input type="text" name="desireToKeepReading" id="desireToKeepReading" value="${nModif.desireToKeepReading}"/>
+		<br />
+		<label for="desireFromSameAuteur">L'envie de lire plus du même auteur :</label>
+		<input type="text" name="desireFromSameAuteur" id="desireFromSameAuteur" value="${nModif.desireFromSameAuteur}"/>
+		<br />
+		<label for="desireToRecommend">L'envie de recommender ce livre</label>
+		<input type="text" name="desireToRecommend" id="desireToRecommend" value="${nModif.desireToRecommend}"/>
+		<br />
+		<label for="comment">Commentaires(facultatif): </label>
+		<input type="text" name="comment" id="comment" value="${uModif.comment}"/>
+		<br /><br/>
+
+		<center>
+		<div class="ui buttons">
+			    <input class="ui red button" type="reset" value="Supprimer"/>
+			    <div class="or"></div>
+			    <input class="ui button" type="reset" value="Enregistrer"/>
+			    <div class="or"></div>
+			    <input type="hidden" name="id" value="${uModif.id}"/>
+			    <input class="ui teal button" type="submit" value="Valider"/>
+		</div>
+		</center>
+	</form>
+</div>
 
 </body>
 </html>
