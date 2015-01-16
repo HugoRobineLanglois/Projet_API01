@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -8,18 +6,23 @@
 		<title>En tête</title>
 	</head>
 	<body>
+
+<div class="menu">
+	<div class="ui secondary pointing four item demo menu">
 	    <c:if test="${ !empty sessionScope.Status && sessionScope.Status == 'User' }">
-	        <p>Vous êtes un lecteur !</p>
 	        <%@ include file="MenuUser.jsp"  %>
+	        <a href="LoginServlet?action=deconnexion" class="item" ><i class="sign out icon" ></i>D�connexion</a>
 	    </c:if>
 	    <c:if test="${ !empty sessionScope.Status && sessionScope.Status == 'Admin' }">
-	        <p>Vous êtes un administrateur !</p>
 	        <%@ include file="MenuAdmin.jsp"  %>
+	        <a href="LoginServlet?action=deconnexion" class="item" ><i class="sign out icon" ></i>D�connexion</a>
+	        </div>
+	        </div>
 	    </c:if>
 	    <c:if test="${ empty sessionScope.Status }">
-	        <p>Vous n'êtes pas authentifié !</p>
 	    </c:if>
-	    <a href="LoginServlet?action=deconnexion">Déconnexion</a>
+	    <a href="LoginServlet?action=deconnexion">D�connexion</a>
 	
 	</body>
 </html>
+</div>
