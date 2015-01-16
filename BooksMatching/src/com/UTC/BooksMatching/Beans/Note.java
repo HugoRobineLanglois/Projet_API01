@@ -2,6 +2,10 @@ package com.UTC.BooksMatching.Beans;
 
 import java.io.Serializable;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 public class Note implements Serializable, Comparable<Note>{
 	private int idBook; 
 	private int idUser; 
@@ -10,6 +14,8 @@ public class Note implements Serializable, Comparable<Note>{
 	private int desireFromSameAuteur; 
 	private int desireToRecommend;
 	private int isValid; 
+	private String comments; 
+	private String date; 
 	
 	
 	
@@ -25,8 +31,43 @@ public class Note implements Serializable, Comparable<Note>{
 		this.desireFromSameAuteur = desireFromSameAuteur;
 		this.desireToRecommend = desireToRecommend;
 		this.isValid=isValid; 
+		DateTime dt = new DateTime();
+		DateTimeFormatter form = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
+		this.date = dt.toString(form);
 	}
 
+	
+	public Note(int idBook, int idUser, int qualityOfWriting,
+			int desireToKeepReading, int desireFromSameAuteur,
+			int desireToRecommend, int isValid, String comment) {
+		super();
+		this.idBook = idBook;
+		this.idUser = idUser;
+		this.qualityOfWriting = qualityOfWriting;
+		this.desireToKeepReading = desireToKeepReading;
+		this.desireFromSameAuteur = desireFromSameAuteur;
+		this.desireToRecommend = desireToRecommend;
+		this.isValid=isValid; 
+		DateTime dt = new DateTime();
+		DateTimeFormatter form = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
+		this.date = dt.toString(form);
+		this.comments=comment; 
+	}
+	
+	public Note(int idBook, int idUser, int qualityOfWriting,
+			int desireToKeepReading, int desireFromSameAuteur,
+			int desireToRecommend, int isValid,String date, String comment) {
+		super();
+		this.idBook = idBook;
+		this.idUser = idUser;
+		this.qualityOfWriting = qualityOfWriting;
+		this.desireToKeepReading = desireToKeepReading;
+		this.desireFromSameAuteur = desireFromSameAuteur;
+		this.desireToRecommend = desireToRecommend;
+		this.isValid=isValid; 
+		this.date = date;
+		this.comments=comment; 
+	}
 
 
 	public int getIdBook() {
@@ -127,6 +168,26 @@ public class Note implements Serializable, Comparable<Note>{
 	public int compareTo(Note o) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+
+	public String getComments() {
+		return comments;
+	}
+
+
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+
+
+	public String getDate() {
+		return date;
+	}
+
+
+	public void setDate(String date) {
+		this.date = date;
 	}
 	
 	

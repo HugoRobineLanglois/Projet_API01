@@ -25,6 +25,10 @@
     <servlet-name>BookServlet</servlet-name>
     <servlet-class>com.UTC.BooksMatching.Servlets.BookServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>NoteServletAdmin</servlet-name>
+    <servlet-class>com.UTC.BooksMatching.Servlets.NoteServletAdmin</servlet-class>
+  </servlet>
    <servlet>
     <servlet-name>ActivationServlet</servlet-name>
     <servlet-class>com.UTC.BooksMatching.Servlets.ActivationServlet</servlet-class>
@@ -33,6 +37,7 @@
     <servlet-name>ActivationServlet</servlet-name>
     <url-pattern>/ActivationServlet</url-pattern>
   </servlet-mapping>
+>>>>>>> origin/master
   <servlet-mapping>
     <servlet-name>UserServlet</servlet-name>
     <url-pattern>/UserServlet</url-pattern>
@@ -48,5 +53,9 @@
   <servlet-mapping>
     <servlet-name>BookServlet</servlet-name>
     <url-pattern>/BookServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>NoteServletAdmin</servlet-name>
+    <url-pattern>/NoteServletAdmin</url-pattern>
   </servlet-mapping>
 </web-app>
