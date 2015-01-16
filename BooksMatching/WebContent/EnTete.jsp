@@ -19,6 +19,7 @@
 	    <c:if test="${ empty sessionScope.Status }">
 	        <p>Vous n'êtes pas authentifié !</p>
 	    </c:if>
+	    <a href="LoginServlet?action=deconnexion">D�connexion</a>
 	
 	</body>
 </html>

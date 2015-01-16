@@ -56,7 +56,7 @@
 	            <br />
 	
 	            <label for="adresseUser">Adresse<span class="requis">*</span></label>
-	            <input type="text" id="adresseUser" name="adresseUser" size="20" maxlength="20" value="${uModif.adresse}"/>
+	            <input type="text" id="adresseUser" name="adresseUser" value="${uModif.adresse}" size="20" maxlength="50" />
 	            <br />
 	
 	            <label for="telephoneUser">Numéro de téléphone<span class="requis">*</span></label>

@@ -3,20 +3,20 @@ package com.UTC.BooksMatching.Beans;
 import java.io.Serializable;
 
 public class Note implements Serializable, Comparable<Note>{
-	private int id; 
 	private int idBook; 
 	private int idUser; 
 	private int qualityOfWriting; 
 	private int desireToKeepReading;
 	private int desireFromSameAuteur; 
 	private int desireToRecommend;
+	private int isValid; 
 	
 	
 	
 	
 	public Note(int idBook, int idUser, int qualityOfWriting,
 			int desireToKeepReading, int desireFromSameAuteur,
-			int desireToRecommend) {
+			int desireToRecommend, int isValid) {
 		super();
 		this.idBook = idBook;
 		this.idUser = idUser;
@@ -24,39 +24,8 @@ public class Note implements Serializable, Comparable<Note>{
 		this.desireToKeepReading = desireToKeepReading;
 		this.desireFromSameAuteur = desireFromSameAuteur;
 		this.desireToRecommend = desireToRecommend;
+		this.isValid=isValid; 
 	}
-
-
-
-
-	public Note(int id, int idBook, int idUser, int qualityOfWriting,
-			int desireToKeepReading, int desireFromSameAuteur,
-			int desireToRecommend) {
-		super();
-		this.id = id;
-		this.idBook = idBook;
-		this.idUser = idUser;
-		this.qualityOfWriting = qualityOfWriting;
-		this.desireToKeepReading = desireToKeepReading;
-		this.desireFromSameAuteur = desireFromSameAuteur;
-		this.desireToRecommend = desireToRecommend;
-	}
-
-
-	
-
-
-	public int getId() {
-		return id;
-	}
-
-
-
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
 
 
 
@@ -137,10 +106,20 @@ public class Note implements Serializable, Comparable<Note>{
 
 
 
+	public void setIsValid(int isValid) {
+		this.isValid = isValid;
+	}
+
+	public int getIsValid() {
+		return isValid;
+	}
+
+
+
+
 	public void setDesireToRecommend(int desireToRecommend) {
 		this.desireToRecommend = desireToRecommend;
 	}
-
 
 
 

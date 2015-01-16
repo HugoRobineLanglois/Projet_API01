@@ -11,6 +11,7 @@ import com.UTC.BooksMatching.Beans.Books;
 import com.UTC.BooksMatching.dao.ConnexionBDD;
 
 public class BookDao {
+	
 
 	public static int insert(Books b){
 		int res = 0;
@@ -147,6 +148,39 @@ public class BookDao {
 		ConnexionBDD.getInstance().closecnx();
 
 		System.out.println("ok- retour de findall");
+		return lb;
+		
+
+		} catch(SQLException e){
+			e.printStackTrace();
+			return lb;
+		}
+	}
+	
+	
+	public static java.util.List<Books> search(String v){
+		java.util.List<Books> lb = new ArrayList<Books>();
+		Connection cnx = null;
+		try{
+		cnx = ConnexionBDD.getInstance().getCnx();
+		java.sql.PreparedStatement statement = cnx.prepareStatement("SELECT id, titre, auteur, editeur, genre, isbn FROM books WHERE titre LIKE ? OR auteur LIKE ? OR editeur LIKE ? OR genre LIKE ? OR isbn LIKE ?;");
+		statement.setString(1, v);
+		statement.setString(2, v);
+		statement.setString(3, v);
+		statement.setString(4, v);
+		statement.setString(5, v);
+		System.out.println("Je vais executer le statement");
+		ResultSet res = statement.executeQuery();
+		System.out.println("fin d'execution du statement");
+		while (res.next()){
+			lb.add(new Books(res.getInt("id"),res.getString("titre"), res.getString("auteur"), res.getString("editeur"), res.getString("genre"), res.getString("isbn")));
+		}
+
+		res.close();
+
+		ConnexionBDD.getInstance().closecnx();
+
+		System.out.println("ok- retour de search");
 		return lb;
 		
 

@@ -6,12 +6,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<link rel="stylesheet" href="./css/bootstrap.css">
-		<link rel="stylesheet" href="./css/bootstrap.mini.css">
+		<link rel="stylesheet" type="text/css" href="semantic.css">
+		<link rel="stylesheet" type="text/css" href="icon.css">
 		<title>Liste des administrateurs</title>
 	</head>
 	<body>
-		<!--  %@ include file="EnTete.jsp"  %> -->
+		<%@ include file="EnTete.jsp"  %>
 		<h1>Admin List</h1>
 		<h4>Trier par</h4>
 		Tri :
@@ -23,18 +23,19 @@
 			<input type="submit" value="Trier" />
 		</form>
 		
-		<table border="1">
-		<tr>
-			<th>
-				<a href="AdminServlet?action=sort">Titre</a>
-			</th>
-			<th>Adresse</th>
-			<th>Nom</th>
-			<th>Prenom</th>
-			<th>Telephone</th>
-			<th>Date_creation</th>
-			<th>ACTIONS</th>
-		</tr>
+		<table class="ui definition table">
+			<thead>
+			<tr>
+				<th>
+					<a href="AdminServlet?action=sort">Adresse</a>
+				</th>
+				<th>Nom</th>
+				<th>Prenom</th>
+				<th>Telephone</th>
+				<th>Date de creation</th>
+				<th>Actions</th>
+			</tr></thead>
+			<tbody>
 			<%
 				Object obj = request.getAttribute("listeA");
 				if(obj!=null){
@@ -59,12 +60,21 @@
 					
 				}
 			%>
+			</tbody>
 		</table>
 		
-		<h3>
-		Ajout/Modification</h3>
+<div class="ui tertiary segment">
+
+
+	<div class="ui block header">
+      <i class="plus icon"></i>
+      <div class="content">
+        Ajout
+        <div class="sub header">(Modification)</div>
+      </div>
+    </div>
 		
-		<form method="post" action="AdminServlet">
+		<form method="post" action="AdminServlet" class="ui form segment">
 				<label for="Adresse">Adresse :</label>
 				<input type="email" name="adresse" id="adresse" value="${uModif.adresse}"/>
 				<br />
@@ -81,8 +91,16 @@
 				<input type="text" name="telephone" id="telephone" value="${uModif.telephone}"/>
 				<br />
 				<!-- <input type="hidden" name="id" value="${uModif.id}"/> -->
-				<input type="submit" value="Valider" />
-			</form>
+
+			<div class="ui buttons">
+				    <input class="ui button" type="reset"/>
+				    <div class="or"></div>
+				    <input type="hidden" name="id" value="${uModif.id}"/>
+				    <input class="ui teal button" type="submit"/>
+			</div>
+		
+		</form>
+</div>
 	
 	</body>
 </html>

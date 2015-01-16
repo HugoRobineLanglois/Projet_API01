@@ -111,21 +111,19 @@ public class AdminServlet extends HttpServlet {
 			String telephone = request.getParameter("telephone");
 			Admin tmp = new Admin (adresse, nom, prenom, pwd, telephone, date_creation);
 			System.out.println("avant find");
-			Admin a = AdminDao.find(adresse);
+			
 			System.out.println("here");
 			//creation et insertion de l'admin, ou update si deja present en bdd
-			if(a.compareTo(tmp) == 0){
-				AdminDao.update(a);
-				System.out.println("update");
+
+			AdminDao.insert(tmp);
+			System.out.println("here2");
+		
+			if(AdminDao.find(tmp.getAdresse()) != null){
+				AdminDao.update(tmp);
+			} else {
+				AdminDao.insert(tmp);
 			}
-			else{
-				System.out.println("insert");
-				Admin b = new Admin(adresse, nom, prenom, pwd, telephone, date_creation);
-				AdminDao.insert(b);
-				
-				
-			}
-			//on met a jour la liste apres ajout
+			//on met a jour la liste
 			listeA = AdminDao.findall();
 
 		}

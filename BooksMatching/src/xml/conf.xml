@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+	<EmailSettings>
+			<port>465</port>
+			<host>smtp.gmail.com</host>
+			<email>projet.api02@gmail.com</email>
+			<password>adminapi02</password>
+			<username>projet.api02</username>
+			<protocol>smtp</protocol>
+	</EmailSettings>
+	
+	<appsettings>
+		<appurl>http://localhost:8080/</appurl>
+		<appname>BooksMatching</appname>
+	</appsettings>
+</root>
