@@ -12,15 +12,7 @@
 	<body>
 		<%@ include file="EnTete.jsp"  %>
 		<h1>Admin List</h1>
-		<h4>Trier par</h4>
-		Tri :
-		<form method="get" action="AdminServlet">
-			<input name="sortType" type="radio" value="1"/>nom
-			<input name="sortType" type="radio" value="2"/>auteur
-			<input name="sortType" type="radio" value="3"/>editeur
-			<input type="hidden" name="action" value="sort" />
-			<input type="submit" value="Trier" />
-		</form>
+		
 		<div class="ui form segment">
 		<div class="grouped inline fields">
 			<form method="post" action="BookServlet" class="ui teal dividing header">
