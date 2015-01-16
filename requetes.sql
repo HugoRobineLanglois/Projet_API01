@@ -93,5 +93,72 @@ VALUES
 
 SELECT * FROM `booksmatching`.`administrateurs`;	
 
+DROP TABLE `booksmatching`.`books`;
+
+CREATE TABLE `booksmatching`.`books` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `titre` VARCHAR(45) NULL,
+  `auteur` VARCHAR(45) NULL,
+  `editeur` VARCHAR(45) NULL,
+  `genre` VARCHAR(45) NULL,
+  `isbn` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`));
+
+
+  
+  
+INSERT INTO `booksmatching`.`books`
+(`titre`,
+`auteur`,
+`editeur`,
+`genre`,
+`isbn`)
+VALUES
+('livre1',
+'livre1',
+'livre1',
+'livre1',
+'livre1'),
+('livre2',
+'livre2',
+'livre2',
+'livre2',
+'livre2'),
+('livre3',
+'livre3',
+'livre3',
+'livre3',
+'livre3'),
+('livre4',
+'livre4',
+'livre4',
+'livre4',
+'livre4');
+
+
+SELECT * FROM  `booksmatching`.`books` ;
+
+DROP TABLE note;
+
+CREATE TABLE `booksmatching`.`note` (
+  `idBook` INT NOT NULL,
+  `idUser` INT NOT NULL,
+  `qualityWriting` INT NULL,
+  `desireReed` INT NULL,
+  `sameAutor` INT NULL,
+  `recommend` INT NULL,
+  `validate` INT NULL, 
+   `date` VARCHAR(20) NULL,
+   `comment` VARCHAR(255),
+PRIMARY KEY(`idBook`, `idUser`)
+
+);
+
+insert into booksmatching.note (idBook, idUser, validate) values (2,1, 1),(3,2, 1);
+insert into booksmatching.note(idBook, idUser, validate) value (4,3, 1);
+insert into booksmatching.note(idBook, idUser, validate) value (1,4, 1);
+
 select * from user;
+select * from books;
+select * from note;
 

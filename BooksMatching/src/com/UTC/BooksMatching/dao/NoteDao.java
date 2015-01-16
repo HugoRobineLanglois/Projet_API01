@@ -7,7 +7,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 
+
+
+
+
+import com.UTC.BooksMatching.Beans.Books;
 import com.UTC.BooksMatching.Beans.Note;
+import com.UTC.BooksMatching.Beans.NoteDetail;
+import com.UTC.BooksMatching.Beans.User;
 import com.UTC.BooksMatching.dao.ConnexionBDD;
 
 public class NoteDao {
@@ -21,7 +28,7 @@ public class NoteDao {
 			cnx=ConnexionBDD.getInstance().getCnx();
 			System.out.println("J'ai fini get instance");
 			
-			String sql = "INSERT INTO note (idBook, idUser, qualityWriting, desireReed, sameAutor, recommend, validate ) VALUES(?, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO note (idBook, idUser, qualityWriting, desireReed, sameAutor, recommend, validate, date, comment ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			java.sql.PreparedStatement ps = cnx.prepareStatement(sql);
 			ps.setInt(1, n.getIdBook());
 			ps.setInt(2, n.getIdUser());
@@ -30,6 +37,8 @@ public class NoteDao {
 			ps.setInt(5,n.getDesireFromSameAuteur());
 			ps.setInt(6,n.getDesireToRecommend());
 			ps.setInt(7,n.getIsValid());
+			ps.setString(8,n.getDate());
+			ps.setString(9,n.getComments());
 			
 			res=ps.executeUpdate();
 			
@@ -52,13 +61,13 @@ public class NoteDao {
 
 		
 			//Requete
-			String sql = "SELECT idBook, idUser, qualityWriting, desireReed, sameAutor, recommend, validate FROM note WHERE idBook=? AND idUser=?";
+			String sql = "SELECT idBook, idUser, qualityWriting, desireReed, sameAutor, recommend, validate, date, comment FROM note WHERE idBook=? AND idUser=?";
 			PreparedStatement ps = cnx.prepareStatement(sql);
 			ps.setInt(1, idBook);
 			ps.setInt(2, idUser);
 			
 			
-			//Execution et traitement de la rÃ©ponse
+			//Execution et traitement de la réponse
 			ResultSet res = ps.executeQuery();
 			
 			while(res.next()){
@@ -68,7 +77,9 @@ public class NoteDao {
 						res.getInt("desireReed"),
 						res.getInt("sameAutor"),
 						res.getInt("recommend"),
-						res.getInt("validate"));
+						res.getInt("validate"), 
+						res.getString("date"), 
+						res.getString("comment"));
 				break;
 			}
 			
@@ -79,7 +90,7 @@ public class NoteDao {
 		}
 
 		//
-		System.out.println("J'ai trouvÃ© l'eval et je le retourne en objet");
+		System.out.println("J'ai trouvé l'eval et je le retourne en objet");
 		return b;
 	}
 	
@@ -89,7 +100,7 @@ public class NoteDao {
 		try {
 			cnx=ConnexionBDD.getInstance().getCnx();
 			
-			String sql = "UPDATE note SET idBook= ?, idUser = ?, qualityWriting= ?, desireReed= ?, sameAutor= ?, recommend =?, validate = ? WHERE idUser = ? AND idBook= ?";
+			String sql = "UPDATE note SET idBook= ?, idUser = ?, qualityWriting= ?, desireReed= ?, sameAutor= ?, recommend =?, validate = ?, date= ?, comment ? WHERE idUser = ? AND idBook= ?";
 			java.sql.PreparedStatement ps = cnx.prepareStatement(sql);
 			ps.setInt(1, n.getIdBook());
 			ps.setInt(2, n.getIdUser());
@@ -98,8 +109,10 @@ public class NoteDao {
 			ps.setInt(5,n.getDesireFromSameAuteur());
 			ps.setInt(6,n.getDesireToRecommend());
 			ps.setInt(7,n.getIsValid());
-			ps.setInt(8, n.getIdBook());
-			ps.setInt(9, n.getIdUser());
+			ps.setString(8, n.getDate());
+			ps.setString(9, n.getComments());
+			ps.setInt(10, n.getIdBook());
+			ps.setInt(11, n.getIdUser());
 			
 			res=ps.executeUpdate();
 			
@@ -125,7 +138,7 @@ public class NoteDao {
 			ps.setInt(1,idUser);
 			ps.setInt(2,idBook);
 			
-			//Execution et traitement de la rÃ©ponse
+			//Execution et traitement de la réponse
 			res = ps.executeUpdate();
 			
 			ConnexionBDD.getInstance().closeCnx();			
@@ -141,7 +154,7 @@ public class NoteDao {
 		Connection cnx = null;
 		try{
 		cnx = ConnexionBDD.getInstance().getCnx();
-		java.sql.PreparedStatement statement = cnx.prepareStatement("SELECT idBook, idUser, qualityWriting, desireReed, sameAutor, recommend, validate FROM note WHERE idUser=?; ");
+		java.sql.PreparedStatement statement = cnx.prepareStatement("SELECT idBook, idUser, qualityWriting, desireReed, sameAutor, recommend, validate, date, comment FROM note WHERE idUser=?; ");
 		statement.setInt(1,idUser);
 		ResultSet res = statement.executeQuery();
 		while (res.next()){
@@ -151,7 +164,9 @@ public class NoteDao {
 					res.getInt("desireReed"),
 					res.getInt("sameAutor"),
 					res.getInt("recommend"),
-					res.getInt("validate")));
+					res.getInt("validate"),
+					res.getString("date"),
+					res.getString("comment")));
 		}
 
 		res.close();
@@ -164,6 +179,52 @@ public class NoteDao {
 			e.printStackTrace();
 			return lb;
 		}
+	}
+	
+	public static java.util.List<Note> findall(){
+		java.util.List<Note> lb = new ArrayList<Note>();
+		Connection cnx = null;
+		try{
+		cnx = ConnexionBDD.getInstance().getCnx();
+		java.sql.PreparedStatement statement = cnx.prepareStatement("SELECT idBook, idUser, qualityWriting, desireReed, sameAutor, recommend, validate, date, comment FROM note ;");
+		ResultSet res = statement.executeQuery();
+		while (res.next()){
+			lb.add(new Note(res.getInt("idBook"),
+					res.getInt("idUser"),
+					res.getInt("qualityWriting"),
+					res.getInt("desireReed"),
+					res.getInt("sameAutor"),
+					res.getInt("recommend"),
+					res.getInt("validate"),
+					res.getString("date"),
+					res.getString("comment")));
+		}
+
+		res.close();
+
+		ConnexionBDD.getInstance().closecnx();
+		return lb;
+		
+
+		} catch(SQLException e){
+			e.printStackTrace();
+			return lb;
+		}
+	}
+	
+	public static java.util.List<NoteDetail> findallDetails(){
+		java.util.List<Note> ln = findall();
+		java.util.List<NoteDetail> lnd = new ArrayList<NoteDetail>();
+		User u = null;
+		Books b = null; 
+		NoteDetail nd = null;
+		for (Note n : ln){
+			u = UserDao.find(n.getIdUser());
+			b = BookDao.find(n.getIdBook());
+			nd = new NoteDetail(b, u, n);
+			lnd.add(nd);
+		}		
+		return lnd;
 	}
 }
 
