@@ -1,3 +1,3 @@
-			 <a href="#suggest" class="item">Management des admins</a>
-			 <a href="#notation" class="item">Books Management</a> 
-			 <a href="#UserServlet" class="item">User Management </a>
+			 <a href="#suggest" class="item">La suggestion de livres</a>
+			 <a href="#notation" class="item">La notation des livres</a> 
+			 <a href="#new" class="item">La creation de livre</a>

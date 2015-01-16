@@ -94,29 +94,25 @@ public class UserServlet extends HttpServlet {
 			
 			//int id = Integer.parseInt(sid);
 			//User user = new User(id, nom, mdp, adresse, telephone, date, statutCompte);
-			User user = new User(nom, mdp, adresse, telephone, null, statutCompte);
-			
-			AppConfigDAO appconfig = new AppConfigDAO();
+			User user = new User(nom, mdp, adresse, telephone, date, statutCompte);
 			
 
-			
-
-			
-			UserDao.insert(user);
 			String idU = request.getParameter("id");
 			if (idU != null && !idU.trim().equals("")) {
 				user.setId(Integer.parseInt(idU));
 				 int res = UserDao.update(user);
 			} else {
+				AppConfigDAO appconfig = new AppConfigDAO();
 				UserDao.insert(user);
+				User tmp = UserDao.find(user.getAdresse());
 				MailSendingManager mailMan = new MailSendingManager();
-	            String subject = "Your Reading Manager account is ready";
-				String body = "<h3>Your Reading Manager account is ready!</h3>"
-						+ "<p>Dear "+((User)user).getNom()+"</p>"
-						+"<p>Here is your password: "+user.getPwd()+"</p>"
-						+"<p>Complete your registration by activating your account below</p>"
-						+"<a href="+appconfig.getAppUrl()+appconfig.getAppName()+"/ActivateAccount?user="+user.getAdresse()+"'>Activate Account</a>"
-						+"<p>Happy Rating!<br/>Reading Manager Team.</p>";
+	            String subject = "Votre compte sur l'application Clémentine";
+				String body = "<h3>Votre compte sur l'application Clémentine aime la *ine est prêt à être utilisé</h3>"
+						+ "<p>Chèr(e) "+((User)tmp).getNom()+"</p>"
+						+"<p>Voici votre mot de passe pour vous authentifier "+tmp.getPwd()+"</p>"
+						+"<p>Vous devez compléter votre inscription en activant votre compte. Pour cela allez au lien ci-dessous</p>"
+						+"<a href="+appconfig.getAppUrl()+appconfig.getAppName()+"/ActivationServlet?user="+tmp.getId()+">Activation de compte</a>"
+						+"<p><br/>L'équipe de Clémentine aime la *ine.</p>";
 				try {
 					mailMan.sendMail(user.getAdresse(), subject, body);
 				} catch (Exception e) {

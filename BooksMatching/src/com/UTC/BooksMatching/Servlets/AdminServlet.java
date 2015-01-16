@@ -61,7 +61,8 @@ public class AdminServlet extends HttpServlet {
 				la = AdminDao.findall();
 			} else if (action.equals("modifier")) {
 				System.out.println("coucou je suis bien dans modifier");
-				AdminDao.update(AdminDao.find(adresse));
+				request.setAttribute("uModif", AdminDao.find(adresse));
+				la = AdminDao.findall();
 			} else if (action.equals("sort")) {
 				
 			}
@@ -72,8 +73,7 @@ public class AdminServlet extends HttpServlet {
 		request.setAttribute("listeA", la);
 		System.out.println("Je sors de doGet et retourne la liste");
 		// rediriger vers une page
-		request.getRequestDispatcher("Admin_Management.jsp")
-				.forward(request, response);
+		request.getRequestDispatcher("Admin_Management.jsp").forward(request, response);
 	}
 
 

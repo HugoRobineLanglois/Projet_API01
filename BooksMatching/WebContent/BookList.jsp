@@ -2,7 +2,8 @@
 <%@page import="com.UTC.BooksMatching.Beans.Books"%>
 <%@page import="com.UTC.BooksMatching.Beans.Note"%>
 <%@page import="java.util.List"%>
-<%@ include file="EnTete.jsp" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
@@ -15,8 +16,8 @@
 		<script src="semantic.js"></script>
 	</head>
 <body>
-
-<div class="ui center aligned segment">
+<%@ include file="EnTete.jsp"  %>
+<div class="ui center aligned segment" id="suggest">
   <div class="ui"><h1>Nous vous suggerrons quelques lectures</h1></div>
   <div class="ui horizontal divider"><i class="setting icon"></i></div>
   <div class="teal ui ">Basées sur les évaluations que vous avez faîtes de vos lectures et les appréciations générales des livres</div>
@@ -49,7 +50,7 @@
 </div>
 
 
-<div class="ui center aligned segment">
+<div class="ui center aligned segment" id="notation">
   <div class="ui"><h1>Notez vos lectures</h1></div>
   <div class="ui horizontal divider">ou</div>
   <div class="teal ui ">Ajoutez de nouveau(x) livre(s) dans notre base de données</div>
@@ -144,26 +145,41 @@
 							
 						%>
 						
-							
-							<a href="#" class="teal ui button">Modifier ou valider ma note</a>
+							<form method="post" action="NoteServlet">
+							 	<input type="hidden" name="idBook" value="<%=b.getId()%>"/>
+							 	<input type="hidden" name="new" value="0"/>
+								<input type="submit" class="teal ui button" value="Modifier ou valider ma note"/>
+							</form>
 						<% 
 					}
 					else if(res==2) {
 						//Note mais valide
 						%>
 						
-							<a href="#" class="teal ui button">Modifier ma note</a>
+							<form method="post" action="NoteServlet">
+							 	<input type="hidden" name="idBook" value="<%=b.getId()%>"/>
+							 	<input type="hidden" name="new" value="0"/>
+								<input type="submit" class="teal ui button" value="Modifier ma note"/>
+							</form>
 						<%
 					}else {
 						// pas de note
 						%>
-						<a href="#" class="teal ui button">Noter ce livre !</a>
+						<form method="post" action="NoteServlet">
+							 	<input type="hidden" name="idBook" value="<%=b.getId()%>"/>
+							 	<input type="hidden" name="new" value="1"/>
+								<input type="submit" class="teal ui button" value="Noter ce livre"/>
+							</form>
 						<%
 					}
 				}else {
 					// pas de note
 					%>
-					<a href="#" class="teal ui button">Noter ce livre !</a>
+					<form method="post" action="NoteServlet">
+							 	<input type="hidden" name="idBook" value="<%=b.getId()%>"/>
+							 	<input type="hidden" name="new" value="1"/>
+								<input type="submit" class="teal ui button" value="Noter ce livre"/>
+							</form>
 					<%
 				}
 
@@ -188,7 +204,7 @@
   </tbody>
 </table>
 
-<div class="ui tertiary segment">
+<div class="ui tertiary segment" id="new">
 
 
 	<div class="ui block header">

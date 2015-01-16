@@ -1,5 +1,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <div class="menu">
 	<div class="ui secondary pointing four item demo menu">
 	    <c:if test="${ !empty sessionScope.Status && sessionScope.Status == 'User' }">
@@ -16,3 +15,4 @@
 	    </c:if>
 </div>
 </div>
+
