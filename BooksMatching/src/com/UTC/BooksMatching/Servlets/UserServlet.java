@@ -13,7 +13,9 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import com.UTC.BooksMatching.Beans.MailSendingManager;
 import com.UTC.BooksMatching.Beans.User;
+import com.UTC.BooksMatching.dao.AppConfigDAO;
 import com.UTC.BooksMatching.dao.UserDao;
 
 /**
@@ -52,11 +54,31 @@ public class UserServlet extends HttpServlet {
 	            message = "Erreur - Vous n'avez pas rempli tous les champs obligatoires. <br> <a href=\"CreationUser.jsp\">Cliquez ici</a> pour accï¿½der au formulaire de crï¿½ation d'un utilisateur.";
 	        } else {
 	            message = "Utilisateur créé avec succès !";
+	            
+	            
 	        }
 			
 			//int id = Integer.parseInt(sid);
 			//User user = new User(id, nom, mdp, adresse, telephone, date, statutCompte);
 			User user = new User(nom, mdp, adresse, telephone, date, statutCompte);
+			
+			AppConfigDAO appconfig = new AppConfigDAO();
+			
+			MailSendingManager mailMan = new MailSendingManager();
+            String subject = "Your Reading Manager account is ready";
+			String body = "<h3>Your Reading Manager account is ready!</h3>"
+					+ "<p>Dear "+((User)user).getNom()+"</p>"
+					+"<p>Here is your password: "+user.getPwd()+"</p>"
+					+"<p>Complete your registration by activating your account below</p>"
+					+"<a href="+appconfig.getAppUrl()+appconfig.getAppName()+"/ActivateAccount?user="+user.getAdresse()+"'>Activate Account</a>"
+					+"<p>Happy Rating!<br/>Reading Manager Team.</p>";
+			
+			try {
+				mailMan.sendMail(user.getAdresse(), subject, body);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			UserDao.insert(user);
 			
@@ -69,7 +91,7 @@ public class UserServlet extends HttpServlet {
 		request.setAttribute("listeU", listeU);		
 		
 		
-		this.getServletContext().getRequestDispatcher( "/CreationUser.jsp" ).forward( request, response );
+		this.getServletContext().getRequestDispatcher( "/GestionUser.jsp" ).forward( request, response );
 	}
 
 	/**

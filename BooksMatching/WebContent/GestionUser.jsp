@@ -57,7 +57,7 @@
 	            <br />
 	
 	            <label for="adresseUser">Adresse<span class="requis">*</span></label>
-	            <input type="text" id="adresseUser" name="adresseUser" value="" size="20" maxlength="20" />
+	            <input type="text" id="adresseUser" name="adresseUser" value="" size="20" maxlength="50" />
 	            <br />
 	
 	            <label for="telephoneUser">Numéro de téléphone<span class="requis">*</span></label>
