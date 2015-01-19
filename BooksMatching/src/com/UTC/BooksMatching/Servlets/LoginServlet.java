@@ -58,7 +58,6 @@ public class LoginServlet extends HttpServlet {
 	        	
 	        	if(a.getAdresse().compareTo(nom) == 0) {
 	        			if (a.getPwd().compareTo(pwd) == 0){
-			        		System.out.println("isAdmin "+a.getNom());
 			        		session.setAttribute("Status", "Admin");
 			            	this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 	        			}
@@ -74,7 +73,6 @@ public class LoginServlet extends HttpServlet {
 	        		if(u.getAdresse().compareTo(nom) == 0){
 	        				if(u.getPwd().compareTo(pwd) == 0){
 			        			session.setAttribute("Status", "User");
-			        			System.out.println("isUser"+u.getNom());
 			        			session.setAttribute("User",u.getId());
 			        	    	this.getServletContext().getRequestDispatcher("/BookServlet").forward(request, response);
 	        				}

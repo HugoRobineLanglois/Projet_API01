@@ -22,7 +22,6 @@ public class Books implements Serializable, Comparable<Books>{
 	public Books(int id, String titre, String auteur, String editeur,
 			String iSBN, String genre) {
 		super();
-		System.out.println("Je suis dans le constructeur avec id de Books");
 		this.id = id;
 		this.titre = titre;
 		this.auteur = auteur;
@@ -34,7 +33,6 @@ public class Books implements Serializable, Comparable<Books>{
 	public Books(String titre, String auteur, String editeur, String iSBN,
 			String genre) {
 		super();
-		System.out.println("Je suis dans le constructeur sans id de Books");
 		this.titre = titre;
 		this.auteur = auteur;
 		this.editeur = editeur;

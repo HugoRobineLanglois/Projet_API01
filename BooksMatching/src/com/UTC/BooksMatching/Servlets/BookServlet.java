@@ -9,14 +9,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.UTC.BooksMatching.Beans.Books;
+import com.UTC.BooksMatching.Beans.Match;
 import com.UTC.BooksMatching.Beans.Note;
 import com.UTC.BooksMatching.Beans.auteurComp;
 import com.UTC.BooksMatching.Beans.editeurComp;
 import com.UTC.BooksMatching.Beans.titreComp;
 import com.UTC.BooksMatching.dao.BookDao;
+import com.UTC.BooksMatching.dao.MatchingDao;
 import com.UTC.BooksMatching.dao.NoteDao;
+import com.UTC.BooksMatching.dao.UserDao;
 
 /**
  * Servlet implementation class BookServlet
@@ -41,11 +45,16 @@ public class BookServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Je suis ds doGet de BookServlet");
 		java.util.List<Books> lb = BookDao.findall();
-		
-		// ATTTTENNNNNTTTTTTTIIIIIIIIIIIIOOOOOOOOOONNNNNN : 
-		// A CHANGER DES QUE J'AI ID USER DS LA SESSION
-		java.util.List<Note> ln= NoteDao.findall(1);
+		HttpSession session = request.getSession();
+		int idUser= (int) session.getAttribute("User");
+		java.util.List<Note> ln= NoteDao.findall(idUser);
 		int id = 0;
+		int isNew = 0;
+		int idBook=-1; 
+		int qualityOfWriting=0;
+		int desireToKeepReading=0; 
+		int desireFromSameAuteur=0;
+		int desireToRecommend=0; 
 		String action = request.getParameter("action");
 		if (action != null) {
 			String idCh = request.getParameter("id");
@@ -60,16 +69,61 @@ public class BookServlet extends HttpServlet {
 			if (action.equals("supprimer")) {
 				BookDao.delete(id);
 				lb = BookDao.findall();
-				//ATTENTION
-				ln= NoteDao.findall(1);
+				ln= NoteDao.findall(idUser);
 			} else if (action.equals("modifier")) {
 				System.out.println("coucou je suis bien dans modifier");
 				request.setAttribute("uModif", BookDao.find(id));
 				lb = BookDao.findall();
-				//ATTENTION
-				ln= NoteDao.findall(1);
+				ln= NoteDao.findall(idUser);
 			} else if (action.equals("sort")) {
 				Collections.sort(lb);
+			}else if(action.equals("note")){
+				// SI NOUVEAU 
+				// SI NON NOUVEAU 
+				// SI ENREGISTRER ou SI VALIDER
+				
+				String idCh1 = request.getParameter("idBook");
+				if (idCh1 != null) {
+					try {
+						idBook = Integer.parseInt(idCh1);
+					} catch (Exception e) {
+
+					}
+				}
+				String idCh2 = request.getParameter("new");
+				if (idCh2 != null) {
+					try {
+						isNew = Integer.parseInt(idCh2);
+					} catch (Exception e) {
+
+					}
+				}
+				
+				String qualityOfWritingS= request.getParameter("qualityOfWriting");
+				String desireToKeepReadingS= request.getParameter("desireToKeepReading");
+				String desireFromSameAuteurS = request.getParameter("desireFromSameAuteur");
+				String desireToRecommendS = request.getParameter("desireToRecommend");
+				String comment= request.getParameter("comment");
+				
+				qualityOfWriting= Integer.parseInt(qualityOfWritingS);
+				desireToKeepReading=Integer.parseInt(desireToKeepReadingS); 
+				desireFromSameAuteur=Integer.parseInt(desireFromSameAuteurS); 
+				desireToRecommend=Integer.parseInt(desireToRecommendS);
+				Note newNote=new Note(idBook, idUser, qualityOfWriting, desireToKeepReading, desireFromSameAuteur, desireToRecommend, 0, comment);
+				
+				System.out.println("Creation des matchs");
+				Match closest = MatchingDao.closematch(UserDao.find(idUser), idBook);
+				Match farthest = MatchingDao.farthestmach(UserDao.find(idUser), idBook);
+				
+				System.out.println("Insertion des matchs");
+				MatchingDao.insert(closest);
+				MatchingDao.insert(farthest);
+				
+				if (isNew==0){
+					NoteDao.insert(newNote);
+				}else {
+					NoteDao.update(newNote);
+				}
 			}
 		}
 
@@ -90,13 +144,19 @@ public class BookServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Je suis dans doPost de BookServlet");
 		List<Books> listeB = BookDao.findall();
-		
-		// ATTTTENNNNNTTTTTTTIIIIIIIIIIIIOOOOOOOOOONNNNNN : 
-				// A CHANGER DES QUE J'AI ID USER DS LA SESSION
-		java.util.List<Note> ln= NoteDao.findall(1);
-		System.out.println("J'ai recuperÃ© tous les rÃ©sultats de find all");
+		HttpSession session = request.getSession();
+		int idUser= (int) session.getAttribute("User");
+		java.util.List<Note> ln= NoteDao.findall(idUser);
+		System.out.println("J'ai recuperé tous les résultats de find all");
 		String action = request.getParameter("action");
+		int isNew = 0;
+		int idBook=-1; 
+		int qualityOfWriting=0;
+		int desireToKeepReading=0; 
+		int desireFromSameAuteur=0;
+		int desireToRecommend=0; 
 
+		
 		if (action != null) {
 			if (action.equals("sort")) {
 				String sortType = request.getParameter("sortType");
@@ -109,37 +169,101 @@ public class BookServlet extends HttpServlet {
 		}else if (action.equals("search")){
 			String toLook="%"+request.getParameter("toLook")+"%";
 			listeB=BookDao.search(toLook);
+		}else if(action.equals("note")){
+			// SI NOUVEAU 
+			// SI NON NOUVEAU 
+			// SI ENREGISTRER ou SI VALIDER
+			
+			String idCh1 = request.getParameter("idBook");
+			if (idCh1 != null) {
+				try {
+					idBook = Integer.parseInt(idCh1);
+				} catch (Exception e) {
+
+				}
+			}
+			String idCh2 = request.getParameter("new");
+			if (idCh2 != null) {
+				try {
+					isNew = Integer.parseInt(idCh2);
+				} catch (Exception e) {
+
+				}
+			}
+			
+			String qualityOfWritingS= request.getParameter("qualityOfWriting");
+			String desireToKeepReadingS= request.getParameter("desireToKeepReading");
+			String desireFromSameAuteurS = request.getParameter("desireFromSameAuteur");
+			String desireToRecommendS = request.getParameter("desireToRecommend");
+			String comment= request.getParameter("comment");
+			
+			qualityOfWriting= Integer.parseInt(qualityOfWritingS);
+			desireToKeepReading=Integer.parseInt(desireToKeepReadingS); 
+			desireFromSameAuteur=Integer.parseInt(desireFromSameAuteurS); 
+			desireToRecommend=Integer.parseInt(desireToRecommendS);
+			Note newNote=new Note(idBook, idUser, qualityOfWriting, desireToKeepReading, desireFromSameAuteur, desireToRecommend, 0, comment);
+			if (isNew==0){
+				NoteDao.update(newNote);				
+			}else {
+				NoteDao.insert(newNote);
+			}
+			
+			ln= NoteDao.findall(idUser);
+		}else if(action.equals("valider")){
+			String idCh1 = request.getParameter("idBook");
+			if (idCh1 != null) {
+				try {
+					idBook = Integer.parseInt(idCh1);
+				} catch (Exception e) {
+
+				}
+			}
+			
+			Note note= NoteDao.find(idUser, idBook);
+			note.setIsValid(1);
+			NoteDao.update(note);
+			ln= NoteDao.findall(idUser);
+			
+			
+			
+			Match closest = MatchingDao.closematch(UserDao.find(idUser), idBook);
+			Match farthest = MatchingDao.farthestmach(UserDao.find(idUser), idBook);
+			
+			if(closest != null)
+				MatchingDao.insert(closest);
+			if(farthest != null)
+				MatchingDao.insert(farthest);
+			
 		}
-		} else {
+			} else{
 
 			String titre = request.getParameter("titre");
 			String auteur = request.getParameter("auteur");
 			String editeur = request.getParameter("editeur");
 			String genre = request.getParameter("genre");
 			String isbn = request.getParameter("ISBN");
-
-			Books b = new Books(titre, auteur, editeur, genre, isbn);
-			String idStr = request.getParameter("id");
-			if (idStr != null && !idStr.trim().equals("")) {
-				b.setId(Integer.parseInt(idStr));
-				 BookDao.update(b);
-				 listeB = BookDao.findall();
-					//ATTENTION
-					ln= NoteDao.findall(1);
-			} else {
-				BookDao.insert(b);
-				listeB = BookDao.findall();
-				//ATTENTION
-				ln= NoteDao.findall(1);
+			
+			if(titre!=null || auteur!=null || editeur !=null || genre !=null || isbn != null){
+				Books b = new Books(titre, auteur, editeur, genre, isbn);
+				String idStr = request.getParameter("id");
+				if (idStr != null && !idStr.trim().equals("")) {
+					b.setId(Integer.parseInt(idStr));
+					 BookDao.update(b);
+					 listeB = BookDao.findall();
+					 ln= NoteDao.findall(idUser);
+				} else {
+					BookDao.insert(b);
+					listeB = BookDao.findall();
+					ln= NoteDao.findall(idUser);
+				}
 			}
-
 		}
 		
 		
-		System.out.println("Je sors de doPost et retourne la liste");
 		request.setAttribute("listeB", listeB);
 		request.setAttribute("listeN", ln);
 		request.getRequestDispatcher("BookList.jsp").forward(request, response);
 	}
 
 }
+

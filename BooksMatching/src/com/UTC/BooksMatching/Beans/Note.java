@@ -176,8 +176,8 @@ public class Note implements Serializable, Comparable<Note>{
 	}
 
 
-	public void setComments(String comments) {
-		this.comments = comments;
+	public void setComments(String comment) {
+		this.comments = comment;
 	}
 
 

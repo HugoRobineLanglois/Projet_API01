@@ -12,9 +12,15 @@
 </head>
 <body>
 <div>
-		<fieldset>
-			<legend>Liste des utilisateurs</legend>
-			<table border="1">
+
+<div class="ui center aligned segment" id="notation">
+  <div class="ui"><h1>Gestion des utilisateurs</h1></div>
+  <div class="ui horizontal divider">ou</div>
+  <div class="teal ui ">Modifiez ou ajoutez les utilisateurs dans notre base de données</div>
+</div>
+
+<table class="ui celled table">
+	<thead>
 			<tr>
 				<th>Nom</th>
 				<th>Adresse</th>
@@ -23,6 +29,8 @@
 				<th>Statut du compte</th>
 				<th>ACTIONS</th>
 			</tr>
+		</thead>
+		<tbody>
 				<%
 					Object obj = request.getAttribute("listeU");
 					if(obj!=null){
@@ -36,8 +44,8 @@
 							<td><%=u.getDateCreation()%></td>
 							<td><%=u.getStatutCompte()%></td>
 							<td>
-								<a href="UserServlet?action=supprimer&id=<%=u.getId()%>">Supprimer</a>
-								<a href="UserServlet?action=modifier&id=<%=u.getId()%>">Modifier</a>	
+								<a href="UserServlet?action=supprimer&id=<%=u.getId()%>"  class="ui button">Supprimer</a>
+								<a href="UserServlet?action=modifier&id=<%=u.getId()%>"  class="ui button">Modifier</a>	
 							</td>
 						</tr>
 				<%
@@ -46,13 +54,21 @@
 						
 					}
 				%>
+				</tbody>
 			</table>
-		</fieldset>
 	</div>
-	<div>
-	    <form method="post" action="UserServlet">
-	        <fieldset>
-	            <legend>Création / Modification des utilisateurs</legend>
+<div class="ui tertiary segment" id="new">
+
+
+	<div class="ui block header">
+      <i class="plus icon"></i>
+      <div class="content">
+        Création
+        <div class="sub header">(ou modification des utilisateurs)</div>
+      </div>
+    </div>
+	    <form  class="ui form segment" method="post" action="UserServlet">
+
 	           
 	            <label for="nomUser">Nom <span class="requis">*</span></label>
 	            <input type="text" id="nomUser" name="nomUser" size="20" maxlength="20" value="${uModif.nom}" />
@@ -70,10 +86,14 @@
 	            <input pattern=".{8,}" required title="8 characters minimum" type="password" id="mpdUser" name="mdpUser" value="${uModif.pwd}" size="20" maxlength="20">
 	            <br />
 	            
-	        </fieldset>
-	        <input type="hidden" name="id" value="${uModif.id}"/>
-	        <input type="submit" value="Valider"  />
-	        <input type="reset" value="Remettre à zéro" /> <br />
+
+			<div class="ui buttons">
+			    <input class="ui button" type="reset"/>
+			    <div class="or"></div>
+			    <input type="hidden" name="id" value="${uModif.id}"/>
+			    <input class="ui teal button" type="submit"/>
+			</div>
+
 	    </form>
 	</div>
 </body>

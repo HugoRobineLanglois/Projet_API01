@@ -10,7 +10,11 @@ public class User implements Serializable, Comparable<Admin>{
 	private String adresse; 
 	private String telephone;
 	private String dateCreation;
-	private String statutCompte;	
+	private String statutCompte;
+	private int coefEcriture;
+	private int coefRecommandation;
+	private int coefEnvie;
+	private int coefAuteur;
 	
 	
 	public User(int id, String nom, String pwd, String adresse,
@@ -23,6 +27,10 @@ public class User implements Serializable, Comparable<Admin>{
 		this.telephone = telephone;
 		this.dateCreation = dateCreation;
 		this.statutCompte = statutCompte;
+		this.coefAuteur = 1;
+		this.coefEcriture = 1;
+		this.coefEnvie = 1;
+		this.coefRecommandation = 1;
 	}
 	
 	public User(String nom, String pwd, String adresse,
@@ -34,6 +42,10 @@ public class User implements Serializable, Comparable<Admin>{
 		this.telephone = telephone;
 		this.dateCreation = dateCreation;
 		this.statutCompte = statutCompte;
+		this.coefAuteur = 1;
+		this.coefEcriture = 1;
+		this.coefEnvie = 1;
+		this.coefRecommandation = 1;
 	}
 	
 	public int getId() {
@@ -81,6 +93,39 @@ public class User implements Serializable, Comparable<Admin>{
 	public void setStatutCompte(String statutCompte) {
 		this.statutCompte = statutCompte;
 	}
+	
+	public int getCoefEcriture() {
+		return coefEcriture;
+	}
+
+	public void setCoefEcriture(int coefEcriture) {
+		this.coefEcriture = coefEcriture;
+	}
+
+	public int getCoefRecommandation() {
+		return coefRecommandation;
+	}
+
+	public void setCoefRecommandation(int coefRecommandation) {
+		this.coefRecommandation = coefRecommandation;
+	}
+
+	public int getCoefEnvie() {
+		return coefEnvie;
+	}
+
+	public void setCoefEnvie(int coefEnvie) {
+		this.coefEnvie = coefEnvie;
+	}
+
+	public int getCoefAuteur() {
+		return coefAuteur;
+	}
+
+	public void setCoefAuteur(int coefAuteur) {
+		this.coefAuteur = coefAuteur;
+	}
+
 	@Override
 	public int compareTo(Admin arg0) {
 		// TODO Auto-generated method stub

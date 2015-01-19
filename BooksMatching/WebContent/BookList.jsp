@@ -121,9 +121,8 @@
 	%>
     <tr>
       <td>
-      		<a href="BookServlet?action=supprimer&id=<%=b.getId()%>" class="ui button">Supprimer</a>
-			<a href="BookServlet?action=modifier&id=<%=b.getId()%>" class="ui button">Modifier</a>
-			
+<%--       		<a href="BookServlet?action=supprimer&id=<%=b.getId()%>" class="ui button">Supprimer</a> --%>
+			<a href="BookServlet?action=modifier&id=<%=b.getId()%>" class="ui button" >Modifier</a>
 			<% 
 					if(note!=null){
 					List<Note> ln=(List<Note>)note;
@@ -148,7 +147,13 @@
 							<form method="post" action="NoteServlet">
 							 	<input type="hidden" name="idBook" value="<%=b.getId()%>"/>
 							 	<input type="hidden" name="new" value="0"/>
-								<input type="submit" class="teal ui button" value="Modifier ou valider ma note"/>
+							 	<input type="hidden" name="Book" value="<%=b%>"/>
+								<input type="submit" class="teal ui button" value="Modifier ma note" style="float: left"/>
+							</form>
+							<form method="post" action="BookServlet">
+							 	<input type="hidden" name="idBook" value="<%=b.getId()%>"/>
+							 	<input type="hidden" name="action" value="valider"/>
+								<input type="submit" class="secondary ui button" value="Valider ma note"/>
 							</form>
 						<% 
 					}
@@ -159,6 +164,7 @@
 							<form method="post" action="NoteServlet">
 							 	<input type="hidden" name="idBook" value="<%=b.getId()%>"/>
 							 	<input type="hidden" name="new" value="0"/>
+							 	<input type="hidden" name="Book" value="<%=b%>"/>
 								<input type="submit" class="teal ui button" value="Modifier ma note"/>
 							</form>
 						<%
@@ -168,6 +174,7 @@
 						<form method="post" action="NoteServlet">
 							 	<input type="hidden" name="idBook" value="<%=b.getId()%>"/>
 							 	<input type="hidden" name="new" value="1"/>
+							 	<input type="hidden" name="Book" value="<%=b%>"/>
 								<input type="submit" class="teal ui button" value="Noter ce livre"/>
 							</form>
 						<%
@@ -178,6 +185,7 @@
 					<form method="post" action="NoteServlet">
 							 	<input type="hidden" name="idBook" value="<%=b.getId()%>"/>
 							 	<input type="hidden" name="new" value="1"/>
+							 	<input type="hidden" name="Book" value="<%=b%>"/>
 								<input type="submit" class="teal ui button" value="Noter ce livre"/>
 							</form>
 					<%

@@ -54,7 +54,7 @@ public class BookDao {
 			ps.setInt(1, id);
 			
 			
-			//Execution et traitement de la rÃ©ponse
+			//Execution et traitement de la réponse
 			ResultSet res = ps.executeQuery();
 			
 			while(res.next()){
@@ -74,7 +74,7 @@ public class BookDao {
 		}
 
 		//
-		System.out.println("J'ai trouvÃ© mon livre et je le retourne en objet");
+		System.out.println("J'ai trouvé mon livre et je le retourne en objet");
 		return b;
 	}
 	
@@ -116,7 +116,7 @@ public class BookDao {
 			PreparedStatement ps = cnx.prepareStatement(sql);
 			ps.setInt(1,id);
 			
-			//Execution et traitement de la rÃ©ponse
+			//Execution et traitement de la réponse
 			res = ps.executeUpdate();
 			
 			ConnexionBDD.getInstance().closeCnx();			

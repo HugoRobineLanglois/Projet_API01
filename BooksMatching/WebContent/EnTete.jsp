@@ -8,10 +8,10 @@
 	    <c:if test="${ !empty sessionScope.Status && sessionScope.Status == 'Admin' }">
 	        <%@ include file="MenuAdmin.jsp"  %>
 	        <a href="LoginServlet?action=deconnexion" class="item" ><i class="sign out icon" ></i>Déconnexion</a>
-	        </div>
-	        </div>
+
 	    </c:if>
 	    <c:if test="${ empty sessionScope.Status }">
 	    </c:if>
+</div>
 </div>
 

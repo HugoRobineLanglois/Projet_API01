@@ -26,6 +26,14 @@
     <servlet-class>com.UTC.BooksMatching.Servlets.BookServlet</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>BookManagement</servlet-name>
+    <servlet-class>com.UTC.BooksMatching.Servlets.BookAdminServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>BookAdminServlet</servlet-name>
+    <servlet-class>com.UTC.BooksMatching.Servlets.BookAdminServlet</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>NoteServletAdmin</servlet-name>
     <servlet-class>com.UTC.BooksMatching.Servlets.NoteServletAdmin</servlet-class>
   </servlet>
@@ -52,6 +60,14 @@
   <servlet-mapping>
     <servlet-name>BookServlet</servlet-name>
     <url-pattern>/BookServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>BookManagement</servlet-name>
+    <url-pattern>/BookManagement</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>BookAdminServlet</servlet-name>
+    <url-pattern>/BookAdminServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>NoteServletAdmin</servlet-name>

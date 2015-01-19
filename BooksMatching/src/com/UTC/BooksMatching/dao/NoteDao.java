@@ -6,11 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
-
-
-
-
 import com.UTC.BooksMatching.Beans.Books;
 import com.UTC.BooksMatching.Beans.Note;
 import com.UTC.BooksMatching.Beans.NoteDetail;
@@ -24,11 +19,8 @@ public class NoteDao {
 		int res = 0;
 		Connection cnx = null;
 		try {
-			System.out.println("Je vais faire get instance");
 			cnx=ConnexionBDD.getInstance().getCnx();
-			System.out.println("J'ai fini get instance");
-			
-			String sql = "INSERT INTO note (idBook, idUser, qualityWriting, desireReed, sameAutor, recommend, validate, date, comment ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO note (idBook, idUser, qualityWriting, desireReed, sameAutor, recommend, validate, date, comment) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			java.sql.PreparedStatement ps = cnx.prepareStatement(sql);
 			ps.setInt(1, n.getIdBook());
 			ps.setInt(2, n.getIdUser());
@@ -39,9 +31,9 @@ public class NoteDao {
 			ps.setInt(7,n.getIsValid());
 			ps.setString(8,n.getDate());
 			ps.setString(9,n.getComments());
-			
+			System.out.println(sql);
 			res=ps.executeUpdate();
-			
+			System.out.println("fin de statement");
 			ConnexionBDD.getInstance().closeCnx();			
 		} catch (SQLException e){
 			e.printStackTrace();
@@ -89,8 +81,6 @@ public class NoteDao {
 			e.printStackTrace();
 		}
 
-		//
-		System.out.println("J'ai trouvé l'eval et je le retourne en objet");
 		return b;
 	}
 	
@@ -99,21 +89,45 @@ public class NoteDao {
 		Connection cnx=null;
 		try {
 			cnx=ConnexionBDD.getInstance().getCnx();
-			
-			String sql = "UPDATE note SET idBook= ?, idUser = ?, qualityWriting= ?, desireReed= ?, sameAutor= ?, recommend =?, validate = ?, date= ?, comment ? WHERE idUser = ? AND idBook= ?";
+			String sql = "UPDATE note SET  qualityWriting= ?, desireReed= ?, sameAutor= ?, recommend =?, validate = ?, date= ?, comment= ? WHERE idUser = ? AND idBook= ?";
 			java.sql.PreparedStatement ps = cnx.prepareStatement(sql);
-			ps.setInt(1, n.getIdBook());
-			ps.setInt(2, n.getIdUser());
-			ps.setInt(3,n.getQualityOfWriting());
-			ps.setInt(4, n.getDesireToKeepReading());
-			ps.setInt(5,n.getDesireFromSameAuteur());
-			ps.setInt(6,n.getDesireToRecommend());
-			ps.setInt(7,n.getIsValid());
-			ps.setString(8, n.getDate());
-			ps.setString(9, n.getComments());
-			ps.setInt(10, n.getIdBook());
-			ps.setInt(11, n.getIdUser());
+
+			ps.setInt(1,n.getQualityOfWriting());
+			ps.setInt(2, n.getDesireToKeepReading());
+			ps.setInt(3,n.getDesireFromSameAuteur());
+			ps.setInt(4,n.getDesireToRecommend());
+			ps.setInt(5,n.getIsValid());
+			ps.setString(6, n.getDate());
+			ps.setString(7, n.getComments());
+			ps.setInt(8, n.getIdUser());
+			ps.setInt(9, n.getIdBook());
+						
+			res=ps.executeUpdate();
 			
+			ConnexionBDD.getInstance().closeCnx();			
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
+	
+	public static int updateInfos(Note n){
+		int res =0;
+		Connection cnx=null;
+		try {
+			cnx=ConnexionBDD.getInstance().getCnx();
+			String sql = "UPDATE note SET  qualityWriting= ?, desireReed= ?, sameAutor= ?, recommend =?, comment= ? WHERE idUser = ? AND idBook= ?";
+			java.sql.PreparedStatement ps = cnx.prepareStatement(sql);
+
+			ps.setInt(1,n.getQualityOfWriting());
+			ps.setInt(2, n.getDesireToKeepReading());
+			ps.setInt(3,n.getDesireFromSameAuteur());
+			ps.setInt(4,n.getDesireToRecommend());
+			ps.setString(5, n.getComments());
+			ps.setInt(6, n.getIdUser());
+			ps.setInt(7, n.getIdBook());
+						
 			res=ps.executeUpdate();
 			
 			ConnexionBDD.getInstance().closeCnx();			
@@ -210,6 +224,8 @@ public class NoteDao {
 			e.printStackTrace();
 			return lb;
 		}
+		
+		
 	}
 	
 	public static java.util.List<NoteDetail> findallDetails(){

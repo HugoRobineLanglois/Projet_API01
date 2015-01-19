@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="com.UTC.BooksMatching.Beans.NoteDetail"%>
+<%@page import="com.UTC.BooksMatching.Beans.Note"%>
 <%@page import="java.util.List"%>
 <%@ include file="EnTete.jsp"  %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -15,49 +16,10 @@
 		<script src="semantic.js"></script>
 </head>
 <body>
-
-<div class="ui center aligned segment">
-  <div class="ui"><h1>Modifiez les notes</h1></div>
-  <div class="ui horizontal divider">ou</div>
-  <div class="teal ui ">Vous pouvez modifier les notes données par les utilisateurs</div>
+<div class="ui center aligned segment" id="notation">
+  <div class="ui"><h1>Gestion des notes</h1></div>
+  <div class="teal ui ">Modifiez des notes données par les utilisateurs</div>
 </div>
-
-<div class="ui form segment">
-	<div class="grouped inline fields">
-		<form method="post" action="NoteServletAdmin" class="ui teal dividing header">
-		          
-		    <label class="content">Trier par :  </label>
-		   	<div class="sub header">
-		        <input name="sortType" type="radio" value="titre"/>
-		        <label>Titre</label>
-
-		        <input name="sortType" type="radio" value="user"/>
-		        <label>Utilisateur</label>
-
-		        <input name="sortType" type="radio" value="date"/>
-		        <label>Date</label>
-		     
-
-			<input type="hidden" name="action" value="sort" />
-		    <input type="submit" value="Trier" class="ui button" style="width: 10%; "/>
-		    
-		     </div>
-	    </form>
-	    
-	    
-	    <br>
-	    <form method="post" action="NoteServletAdmin">
-		<div class="ui action left icon input ">
-		  <i class="search icon"></i>
-		  <input type="text" placeholder="Rechercher..." name="toLook">
-		  <input type="hidden" name="action" value="search" />
-		  <div type="submit" value="Rechercher" class="ui teal button" style="text-align: center; width: 10%">Recherche</div>
-		</div>
-		</form>
-	    
-	    </div>	
-  </div> 
-  
   <table class="ui definition table">
   <thead>
     <tr>
@@ -96,6 +58,7 @@
     <tr>
 	    <td>
 				<a href="NoteServletAdmin?action=modifier&user=<%=n.getUser().getId()%>&book=<%=n.getBook().getId()%>" class="teal ui button">Modifier</a>
+				<a href="NoteServletAdmin?action=supprimer&user=<%=n.getUser().getId()%>&book=<%=n.getBook().getId()%>" class="ui red button">Supprimer</a>
 		</td>
 	    <td><%=n.getBook().getTitre()%></td>
 		<td><%=n.getBook().getAuteur()%></td>
@@ -116,62 +79,126 @@
 </table>
 
 
+<%
+  		Note note= (Note)request.getAttribute("nModif");
+		int qw=0, dr=0, dk=0, da=0;
+		if(note!=null){
+		qw=note.getQualityOfWriting();
+		dr=note.getDesireToRecommend();
+		dk=note.getDesireToKeepReading();
+		da=note.getDesireFromSameAuteur();
+		}
+%>		
 <div class="ui tertiary segment">
 	<div class="ui block header">
       <i class="sliders icon"></i>
       <div class="content">
-        Notez ce livre
-        <div class="sub header">(ou modifier la notation)</div>
+        Modifiez les notes
+        <div class="sub header">Vous pouvez modifier les évaluations des utilisateurs</div>
       </div>
     </div>
 
-	<form class="ui form segment" method="post" action="NoteServlet">
+	<form class="ui form segment" method="post" action="NoteServletAdmin">
 		<div class="segment">
-		<label for="qualityOfWriting">La qualité de l'écriture : </label>
-				<input name="qualityOfWriting" type="radio" value="0" style="margin-left: 10%"/>
+		<label for="qualityOfWriting" style="width: 20%">La qualité de l'écriture : </label>
+				<input name="qualityOfWriting" type="radio" value="0" style="margin-left: 10%" <% if(note != null && qw==0){ %> checked<%} %>/>
 		        <label>0</label>
 		
-				<input name="qualityOfWriting" type="radio" value="1" style="margin-left: 10%"/>
+				<input name="qualityOfWriting" type="radio" value="1" style="margin-left: 10%" <% if(note != null && qw==1){ %> checked <%} %>/>
 		        <label>1</label>
 
-		        <input name="qualityOfWriting" type="radio" value="2" style="margin-left: 10%"/>
+		        <input name="qualityOfWriting" type="radio" value="2" style="margin-left: 10%" <% if(note != null && qw==2) {%> checked <%} %>/>
 		        <label>2</label>
 
-		        <input name="qualityOfWriting" type="radio" value="3" style="margin-left: 10%"/>
+		        <input name="qualityOfWriting" type="radio" value="3" style="margin-left: 10%" <% if(note != null && qw== 3){ %> checked <%} %>/>
 		        <label>3</label>
 		        
-		        <input name="qualityOfWriting" type="radio" value="4" style="margin-left: 10%"/>
+		        <input name="qualityOfWriting" type="radio" value="4" style="margin-left: 10%" <% if(note != null && qw==4){ %> checked <%} %>/>
 		        <label>4</label>
 		        
-		        <input name="qualityOfWriting" type="radio" value="5" style="margin-left: 10%"/>
+		        <input name="qualityOfWriting" type="radio" value="5" style="margin-left: 10%" <% if(note != null && qw==5){ %> checked <%} %>/>
 		        <label>5</label>
 		</div>
 		<br />
-		<label for="desireToKeepReading">L'envie de continuer la lecture: </label>
-		<input type="text" name="desireToKeepReading" id="desireToKeepReading" value="${nModif.desireToKeepReading}"/>
+		<div class="segment">
+		<label for="desireToKeepReading" style="width: 20%">L'envie de contier de lire : </label>
+				<input name="desireToKeepReading" type="radio" value="0" style="margin-left: 10%" <% if(note != null && dk==0){ %> checked<%} %>/>
+		        <label>0</label>
+		
+				<input name="desireToKeepReading" type="radio" value="1" style="margin-left: 10%" <% if(note != null && dk==1){ %> checked<%} %>/>
+		        <label>1</label>
+
+		        <input name="desireToKeepReading" type="radio" value="2" style="margin-left: 10%" <% if(note != null && dk==2){ %> checked<%} %>/>
+		        <label>2</label>
+
+		        <input name="desireToKeepReading" type="radio" value="3" style="margin-left: 10%" <% if(note != null && dk==3){ %> checked<%} %>/>
+		        <label>3</label>
+		        
+		        <input name="desireToKeepReading" type="radio" value="4" style="margin-left: 10%" <% if(note != null && dk==4){ %> checked<%} %>/>
+		        <label>4</label>
+		        
+		        <input name="desireToKeepReading" type="radio" value="5" style="margin-left: 10%" <% if(note != null && dk==5){ %> checked<%} %>/>
+		        <label>5</label>
+		</div>
 		<br />
-		<label for="desireFromSameAuteur">L'envie de lire plus du même auteur :</label>
-		<input type="text" name="desireFromSameAuteur" id="desireFromSameAuteur" value="${nModif.desireFromSameAuteur}"/>
+		<div class="segment">
+		<label for="desireFromSameAuteur" style="width: 20%">L'envie de lire du même auteur </label>
+				<input name="desireFromSameAuteur" type="radio" value="0" style="margin-left: 10%" <% if(note != null && da==0){ %> checked<%} %>/>
+		        <label>0</label>
+		
+				<input name="desireFromSameAuteur" type="radio" value="1" style="margin-left: 10%" <% if(note != null && da==1){ %> checked<%} %>/>
+		        <label>1</label>
+
+		        <input name="desireFromSameAuteur" type="radio" value="2" style="margin-left: 10%" <% if(note != null && da==2){ %> checked<%} %>/>
+		        <label>2</label>
+
+		        <input name="desireFromSameAuteur" type="radio" value="3" style="margin-left: 10%" <% if(note != null && da==3){ %> checked<%} %>/>
+		        <label>3</label>
+		        
+		        <input name="desireFromSameAuteur" type="radio" value="4" style="margin-left: 10%" <% if(note != null && da==4){ %> checked<%} %>/>
+		        <label>4</label>
+		        
+		        <input name="desireFromSameAuteur" type="radio" value="5" style="margin-left: 10%" <% if(note != null && da==5){ %> checked<%} %>/>
+		        <label>5</label>
+		</div>
 		<br />
-		<label for="desireToRecommend">L'envie de recommender ce livre</label>
-		<input type="text" name="desireToRecommend" id="desireToRecommend" value="${nModif.desireToRecommend}"/>
+		<div class="segment">
+		<label for="desireToRecommend" style="width: 20%">L'envie de le recommander: </label>
+				<input name="desireToRecommend" type="radio" value="0" style="margin-left: 10%" <% if(note != null && dr==0){ %> checked<%} %>/>
+		        <label>0</label>
+		
+				<input name="desireToRecommend" type="radio" value="1" style="margin-left: 10%" <% if(note != null && dr==1){ %> checked<%} %>/>
+		        <label>1</label>
+
+		        <input name="desireToRecommend" type="radio" value="2" style="margin-left: 10%"<% if(note != null && dr==2){ %> checked<%} %>/>
+		        <label>2</label>
+
+		        <input name="desireToRecommend" type="radio" value="3" style="margin-left: 10%" <% if(note != null && dr==3){ %> checked<%} %>/>
+		        <label>3</label>
+		        
+		        <input name="desireToRecommend" type="radio" value="4" style="margin-left: 10%" <% if(note != null && dr==4){ %> checked<%} %>/>
+		        <label>4</label>
+		        
+		        <input name="desireToRecommend" type="radio" value="5" style="margin-left: 10%" <% if(note != null && dr==5){ %> checked<%} %>/>
+		        <label>5</label>
+		</div>
 		<br />
 		<label for="comment">Commentaires(facultatif): </label>
-		<input type="text" name="comment" id="comment" value="${uModif.comment}"/>
+		<input type="text" name="comment" id="comment" value="${nModif.comments}"/>
 		<br /><br/>
 
 		<center>
 		<div class="ui buttons">
-			    <input class="ui red button" type="reset" value="Supprimer"/>
+			    <input class="ui red button" type="reset" value="Reset"/>
 			    <div class="or"></div>
-			    <input class="ui button" type="reset" value="Enregistrer"/>
-			    <div class="or"></div>
-			    <input type="hidden" name="id" value="${uModif.id}"/>
-			    <input class="ui teal button" type="submit" value="Valider"/>
+			    <input type="hidden" name="action" value="modifier" />
+			    <input type="hidden" name="user" value="${nModif.idUser }"/>
+			    <input type="hidden" name="book" value="${nModif.idBook}" />
+			    <input class="ui teal button" type="submit" value="Enregistrer"/>
 		</div>
 		</center>
 	</form>
-</div>
+</div> 
 
 </body>
 </html>

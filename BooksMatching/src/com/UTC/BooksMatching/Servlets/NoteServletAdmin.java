@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 import com.UTC.BooksMatching.Beans.Books;
 import com.UTC.BooksMatching.Beans.CompDateNote;
 import com.UTC.BooksMatching.Beans.CompTitreNote;
@@ -55,9 +59,11 @@ public class NoteServletAdmin extends HttpServlet {
 			if (action.equals("sort")) {
 				Collections.sort(listeN);
 			} else if (action.equals("modifier")) {
-				System.out.println("NoteAdmin modifier");
 				request.setAttribute("nModif", NoteDao.find(idUser, idBook));
 				listeN= NoteDao.findallDetails();
+			} else if (action.equals("supprimer")){
+				NoteDao.delete(idUser, idBook);
+				listeN = NoteDao.findallDetails();
 			}
 		}		
 		request.setAttribute("listeN", listeN);
@@ -81,6 +87,43 @@ public class NoteServletAdmin extends HttpServlet {
 					Collections.sort(listeN, new CompUserNote());
 				else if (sortType.equals("date"))
 				Collections.sort(listeN, new CompDateNote());
+			}
+			else if (action.equals("modifier")){
+				int idUser = 0, idBook = 0;
+				String idCh1 = request.getParameter("user");
+				if (idCh1 != null) {
+					try {
+						idUser = Integer.parseInt(idCh1);
+					} catch (Exception e) {
+	
+					}
+				}
+				String idCh2 = request.getParameter("book");
+				if (idCh2 != null) {
+					try {
+						idBook = Integer.parseInt(idCh2);
+					} catch (Exception e) {
+	
+					}
+				}
+				
+				Note note = NoteDao.find(idUser, idBook);
+				request.setAttribute("note", note);
+				int qualityOfWriting = Integer.parseInt(request.getParameter("qualityOfWriting"));
+				int desireToKeepReading = Integer.parseInt(request.getParameter("desireToKeepReading"));
+				int desireFromSameAuteur = Integer.parseInt(request.getParameter("desireFromSameAuteur"));
+				int desireToRecommend = Integer.parseInt(request.getParameter("desireToRecommend"));
+				String comment = request.getParameter("comment");
+				int isValid = 1;
+				DateTime dt = new DateTime();
+				DateTimeFormatter form = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
+				String date = dt.toString(form);
+				
+				Note newNote = new Note(idBook, idUser, qualityOfWriting, desireToKeepReading, desireFromSameAuteur, desireToRecommend, isValid, comment);
+				
+				NoteDao.updateInfos(newNote);
+				
+				listeN = NoteDao.findallDetails();
 			}
 		}
 		request.setAttribute("listeN", listeN);
