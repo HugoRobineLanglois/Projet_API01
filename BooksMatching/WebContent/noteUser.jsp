@@ -18,6 +18,7 @@
 <%
   		Note note= (Note)request.getAttribute("note");	
 		Books book= (Books)request.getAttribute("Book");	
+
 		int qw=note.getQualityOfWriting();
 		int dr=note.getDesireToRecommend();
 		int dk=note.getDesireToKeepReading();
@@ -47,6 +48,7 @@
 
 	<form class="ui form segment" method="post" action="BookServlet">
 		<div class="segment">
+
 		<label for="qualityOfWriting" style="width: 20%">La qualité de l'écriture : </label>
 				<input name="qualityOfWriting" type="radio" value="0" style="margin-left: 10%" <% if(qw==0){ %> checked<%} %>/>
 		        <label>0</label>
@@ -89,7 +91,9 @@
 		</div>
 		<br />
 		<div class="segment">
+
 		<label for="desireFromSameAuteur" style="width: 20%">L'envie de lire du même auteur </label>
+
 				<input name="desireFromSameAuteur" type="radio" value="0" style="margin-left: 10%" <% if(da==0){ %> checked<%} %>/>
 		        <label>0</label>
 		

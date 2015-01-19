@@ -51,7 +51,10 @@ public class NoteServlet extends HttpServlet {
 		System.out.println(idUser);
 		int idBook=-1; 
 		int nouveau;
+<<<<<<< HEAD
 		
+=======
+>>>>>>> origin/master
 		String idCh = request.getParameter("idBook");
 		String isNew=request.getParameter("new");
 		nouveau=Integer.parseInt(isNew);
@@ -62,6 +65,7 @@ public class NoteServlet extends HttpServlet {
 
 			}
 		}
+<<<<<<< HEAD
 		Books book= BookDao.find(idBook);
 		//System.out.println("encore coucou");
 		//System.out.println(idBook);
@@ -69,6 +73,15 @@ public class NoteServlet extends HttpServlet {
 		//System.out.println(request.getParameter("new"));
 		if(nouveau==0){
 			//System.out.println(" c'est 0");
+=======
+		
+		System.out.println("encore coucou");
+		System.out.println(idBook);
+		Note note;
+		System.out.println(request.getParameter("new"));
+		if(nouveau==0){
+			System.out.println(" c'est 0");
+>>>>>>> origin/master
 			note = NoteDao.find(idUser, idBook); 
 			request.setAttribute("new", '0');
 		}else{
@@ -76,7 +89,10 @@ public class NoteServlet extends HttpServlet {
 			request.setAttribute("new", '1');
 
 		}
+<<<<<<< HEAD
 		request.setAttribute("Book", book);
+=======
+>>>>>>> origin/master
 		request.setAttribute("note", note);
 		
 		request.getRequestDispatcher("noteUser.jsp").forward(request, response);

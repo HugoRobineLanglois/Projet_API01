@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <%@page import="com.UTC.BooksMatching.Beans.Books"%>
+<%@page import="com.UTC.BooksMatching.Beans.Note"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -52,6 +53,7 @@
 	    
 	    <br>
 	    <form method="post" action="BookAdminServlet">
+
 		<div class="ui action left icon input ">
 		  <i class="search icon"></i>
 		  <input type="text" placeholder="Rechercher..." name="toLook">
@@ -79,6 +81,7 @@
   <tbody>
   	<%
 		Object obj = request.getAttribute("listeB");
+
 		if(obj!=null){
 			List<Books> lb = (List<Books>)obj;
 			for(Books b : lb){
@@ -89,7 +92,6 @@
       <td>
       		<a href="BookAdminServlet?action=supprimer&id=<%=b.getId()%>" class="ui button">Supprimer</a>
 			<a href="BookAdminServlet?action=modifier&id=<%=b.getId()%>" class="ui button" >Modifier</a>
-			
 
 			
 	  </td>
@@ -120,6 +122,7 @@
     </div>
 
 <form class="ui form segment" method="post" action="BookAdminServlet">
+
 		<label for="titre">Titre :</label>
 		<input type="text" name="titre" id="titre" value="${uModif.titre}"/>
 		<br />

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import com.UTC.BooksMatching.Beans.Books;
 import com.UTC.BooksMatching.Beans.Match;
 import com.UTC.BooksMatching.Beans.Note;
+import com.UTC.BooksMatching.Beans.User;
 import com.UTC.BooksMatching.Beans.auteurComp;
 import com.UTC.BooksMatching.Beans.editeurComp;
 import com.UTC.BooksMatching.Beans.titreComp;
@@ -47,7 +48,11 @@ public class BookServlet extends HttpServlet {
 		java.util.List<Books> lb = BookDao.findall();
 		HttpSession session = request.getSession();
 		int idUser= (int) session.getAttribute("User");
+		User u=UserDao.find(idUser);
+		
 		java.util.List<Note> ln= NoteDao.findall(idUser);
+		
+		
 		int id = 0;
 		int isNew = 0;
 		int idBook=-1; 
@@ -55,6 +60,8 @@ public class BookServlet extends HttpServlet {
 		int desireToKeepReading=0; 
 		int desireFromSameAuteur=0;
 		int desireToRecommend=0; 
+		
+		
 		String action = request.getParameter("action");
 		if (action != null) {
 			String idCh = request.getParameter("id");
@@ -77,6 +84,20 @@ public class BookServlet extends HttpServlet {
 				ln= NoteDao.findall(idUser);
 			} else if (action.equals("sort")) {
 				Collections.sort(lb);
+			}else if(action.equals("changecoef")){
+				System.out.println("bien ici");
+				int coefAuteur=0, coefEcriture=0, coefEnvie=0, coefRecommandation=0;
+				
+				coefAuteur = Integer.parseInt(request.getParameter("coefAuteur"));
+				coefEcriture = Integer.parseInt(request.getParameter("coefEcriture"));
+				coefEnvie = Integer.parseInt(request.getParameter("coefEnvie"));
+				coefRecommandation = Integer.parseInt(request.getParameter("coefRecommandation"));
+				System.out.println(coefAuteur + " &  "+ coefEcriture + " &  "+ coefEnvie +" & "+ coefRecommandation);
+				UserDao.UpdateCoef(idUser, coefAuteur, coefEcriture, coefEnvie, coefRecommandation);
+				u.setCoefAuteur(coefAuteur);
+				u.setCoefEcriture(coefEcriture);
+				u.setCoefEnvie(coefEnvie);
+				u.setCoefRecommandation(coefRecommandation);
 			}else if(action.equals("note")){
 				// SI NOUVEAU 
 				// SI NON NOUVEAU 
@@ -128,7 +149,11 @@ public class BookServlet extends HttpServlet {
 		}
 
 		// recuperer une liste d'utilisateurs
-		
+		request.setAttribute("coefAuteur", u.getCoefAuteur());
+		request.setAttribute("coefEcriture", u.getCoefEcriture());
+		request.setAttribute("coefEnvie", u.getCoefEnvie());
+		request.setAttribute("coefRecommandation", u.getCoefRecommandation());
+		System.out.println("Test" + u.getCoefRecommandation());
 		request.setAttribute("listeB", lb);
 		request.setAttribute("listeN", ln);
 		System.out.println("Je sors de doGet et retourne la liste");
@@ -147,8 +172,9 @@ public class BookServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		int idUser= (int) session.getAttribute("User");
 		java.util.List<Note> ln= NoteDao.findall(idUser);
-		System.out.println("J'ai recuperé tous les résultats de find all");
+		
 		String action = request.getParameter("action");
+		User u=UserDao.find(idUser);
 		int isNew = 0;
 		int idBook=-1; 
 		int qualityOfWriting=0;
@@ -259,7 +285,10 @@ public class BookServlet extends HttpServlet {
 			}
 		}
 		
-		
+		request.setAttribute("coefAuteur", u.getCoefAuteur());
+		request.setAttribute("coefEcriture", u.getCoefEcriture());
+		request.setAttribute("coefEnvie", u.getCoefEnvie());
+		request.setAttribute("coefRecommandation", u.getCoefRecommandation());
 		request.setAttribute("listeB", listeB);
 		request.setAttribute("listeN", ln);
 		request.getRequestDispatcher("BookList.jsp").forward(request, response);

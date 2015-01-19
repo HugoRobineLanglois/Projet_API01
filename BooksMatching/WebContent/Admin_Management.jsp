@@ -15,7 +15,7 @@
 		
 		<div class="ui form segment">
 		<div class="grouped inline fields">
-			<form method="post" action="BookServlet" class="ui teal dividing header">
+			<form method="post" action="AdminServlet" class="ui teal dividing header">
 		          
 		    	<label class="content">Trier par :  </label>
 		   			<div class="sub header">
